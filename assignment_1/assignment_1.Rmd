@@ -1,0 +1,71 @@
+---
+title: "assignment_1"
+author: "Wouter"
+date: '2022-05-02'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(readxl)
+library(here)
+```
+
+# opdracht 1.1
+
+The data for this exercise was kindly supplied by J. Louter (INT/ILC) and was derived from an experiment in which adult C.elegans nematodes were exposed to varying concentrations of different compounds. The variables RawData (the outcome - number of offspring counted as an integer value, after incubation time), compName (the generic name of the compound/chemical), the compConcentration (the concentration of the compound), and the expType are the most important variables in this dataset.
+
+A typical analysis with this data would be to run a dose-response analysis using a log-logistic model with estimates for the maximal, the minimal, the IC50 concentration and the slope at IC50. We will not go into the details but a good package to run such computations and create graphs in R is the {drc} package. See: and:. In the exercise below we will create some visualizations using {ggplot2}.
+
+### a)
+Review the following Excel file in the ./data/CE.LIQ.FLOW.062_Tidydata.xlsx (it’s here), by opening the file in Excel. See if you can spot anything peculiar about this file. Do not edit the file in any way. Just close it when you are done. (Annoyingly, Excel asks you to save your changes, even if you did not touch anything in the file.)
+
+### Answer
+There are some missing data points in the column "RawData" row 192-196 and there are some rows which have the same value for everything. That could just be in a metadata file instead of a seperate column for everything
+
+### b)
+Open the file in R, using the {readxl} package.
+
+### Answer
+```{r}
+data <- read_excel(here(
+  "assignment_1",
+  "raw_data",
+  "CE.LIQ.FLOW.062_Tidydata.xlsx"
+))
+summary(data)
+class(data)
+```
+
+### c)
+Inspect the data types of columns RawData, compName and compConcentration. What types would you expect from the experimental description above. Have the data types been correctly assigned during the importing of the data into R?
+
+### Answer
+```{r echo=TRUE}
+# check the unique values in column compConcentration and see that some of the values are in scientific notation which causes the values to be read as character instead of numeric
+unique(data$compConcentration)
+
+# change the scientifically notated values in numeric values
+data["compConcentration"][data["compConcentration"] == "1.95E-2"] <- "0.0195"
+data["compConcentration"][data["compConcentration"] == "4.9899999999999996E-3"] <- "0.0049899999999999996"
+data["compConcentration"][data["compConcentration"] == "4.9899999999999999E-4"] <- "0.00049899999999999999"
+data["compConcentration"][data["compConcentration"] == "1.9499999999999999E-3"] <- "0.0019499999999999999"
+data["compConcentration"][data["compConcentration"] == "4.99E-2"] <- "0.0499"
+data["compConcentration"][data["compConcentration"] == "4.99E-5"] <- "0.0000499"
+data["compConcentration"][data["compConcentration"] == "1.95E-4"] <- "0.000195"
+
+# change global options to not have scientific notation in as.numeric function
+options(scipen=999)
+
+# once again check the unique values; they can now be changed into numeric values
+unique(data$compConcentration)
+data$compConcentration <- as.numeric(data$compConcentration)
+
+# change column "compName" into a factor
+data$compName <- as.factor(data$compName)
+summary(data)
+data
+```
+RawData was already a double, compConcentration was not a double as expected because of the scientific notation introduced by excel during import; This was changed into numeric notation. The compName could easily be changed into a factor which is to be expected in this data set. 
+
+
