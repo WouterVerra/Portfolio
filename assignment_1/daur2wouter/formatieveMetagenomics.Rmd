@@ -1,0 +1,228 @@
+---
+title: "formatieveMetagenomics"
+author: "Wouter"
+date: "4-4-2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(here)
+library(png)
+library(grid)
+library(gridExtra)
+```
+
+### update conda
+```{bash, engine.opts='-i', eval=FALSE}
+# update conda and answer y to proceed question
+echo “y” | conda update -n base conda
+```
+
+### check alle environments
+```{bash, engine.opts='-i', echo=TRUE, eval=TRUE}
+# show all conda virtual environments
+conda env list
+
+# show yml file content
+cat ~/daur2wouter/setup_meta_env.yml
+```
+
+### maak een virtual environment in de gemaakte file
+```{bash, engine.opts='-i', echo=TRUE, eval=FALSE}
+# create conda virtual environment
+conda env create --file ~/daur2wouter/setup_meta_env.yml
+```
+
+### installeer fastqc
+```{bash, engine.opts='-i', echo=TRUE, eval=FALSE}
+# activate environment
+conda activate meta
+
+# install fastqc and answer yes for procceed question
+echo "y" | conda install -c bioconda fastqc
+
+# deactivate conda virtual environment
+conda deactivate
+```
+
+### voer fastqc uit
+```{bash, engine.opts='-i', echo=TRUE, eval=FALSE}
+# activate environment
+conda activate meta
+
+# perform FastQC analysis (change first path to your own folder structure if needed)
+fastqc -o ~/daur2wouter/fastqcMG/ /home/daur2/metagenomics/reader_data/HU1_MOCK1_L001_R1_001.fastq.gz/
+
+# perform FastQC analysis (change first path to your own folder structure if needed)
+fastqc -o ~/daur2wouter/fastqcMG/ /home/daur2/metagenomics/reader_data/HU1_MOCK1_L001_R2_001.fastq.gz/
+
+# deactivate conda virtual environment
+conda deactivate
+```
+
+### zet fastqc resultaat in rmarkdown bestand
+```{r , echo=FALSE, fig.height=3, out.width= '100%', fig.cap="Fig. 1: Quality distribution: Right-side) Foward read quality scores range from 0 to 40 on the Phred scale. All bases for all reads have very high quality (>30), indicating that our reads have an accuracy of >99,9%. Left-side)" }
+# put fastqc results in this document
+img1 <-  rasterGrob(as.raster(readPNG("per_base_quality1.png")))
+img2 <-  rasterGrob(as.raster(readPNG("per_base_quality2.png")))
+grid.arrange(img1, img2, ncol=2, top=textGrob("Per base quality distribution of forward (right) and reverse (left) reads", gp=gpar(fontsize=10,font=8)))
+```
+
+### installeer kraken2
+```{bash, engine.opts='-i', echo=TRUE, eval=FALSE}
+# activate environment
+conda activate meta
+
+#install kraken2 and answer y to proceed question
+echo "y" | conda install -c bioconda kraken2
+
+# deactivate virtual environment
+conda deactivate
+```
+
+### voer kraken2 uit
+```{bash, engine.opts='-i', echo=TRUE, eval=FALSE}
+# activate environment
+conda activate meta
+
+# voer kraken2 uit
+kraken2 --db /home/daur2/metagenomics/minikraken2_v2_8GB_201904_UPDATE/ --threads 6 --paired --gzip-compressed --output /home/1738741/daur2wouter/kraken2/mock1/mock1.kraken --report /home/1738741/daur2wouter/kraken2/mock1/mock1.report --use-names /home/daur2/metagenomics/reader_data/HU1_MOCK1_L001_R1_001.fastq.gz /home/daur2/metagenomics/reader_data/HU1_MOCK1_L001_R2_001.fastq.gz
+
+# deactivate environment
+conda deactivate
+```
+
+### installeer bracken
+```{bash, engine.opts='-i', echo=TRUE, eval=FALSE}
+# activate environment
+conda activate meta
+
+# install bracken
+echo "y" | conda install -c bioconda bracken
+
+# deactivate environment
+conda deactivate
+```
+
+### voer bracken uit
+```{bash, engine.opts='-i', echo=TRUE, eval=FALSE}
+# activate environment
+conda activate meta
+
+# execute bracken
+bracken -d /home/daur2/metagenomics/minikraken2_v2_8GB_201904_UPDATE/ -i /home/1738741/daur2wouter/kraken2/mock1/mock1.report -o /home/1738741/daur2wouter/bracken/mock1.bracken
+
+# deactivate environment
+conda deactivate
+```
+
+### installeer kraken-biom
+```{bash, engine.opts='-i', echo=TRUE, eval=FALSE}
+# activate environment
+conda activate meta
+
+# install kraken-biom and answer y to proceed question
+echo "y" | conda install -c bioconda kraken-biom
+
+# deactivate conda
+conda deactivate
+```
+
+### voer kraken-biom uit
+```{bash, engine.opts='-i', echo=TRUE, eval=FALSE}
+# activate environment
+conda activate meta
+
+# execute kraken-biom
+kraken-biom /home/1738741/daur2wouter/kraken2/mock1/mock1_bracken_species.report --fmt json -o /home/1738741/daur2wouter/kraken2/mock1/mock1_bracken_species.biom
+
+# deactivate environment
+conda deactivate
+```
+
+### installeer phyloseq
+```{r, eval=FALSE}
+# install phyloseq package
+BiocManager::install("phyloseq")
+```
+
+### laad phyloseq en ggplot2
+```{r}
+library(phyloseq)
+library(ggplot2)
+```
+
+### read count per kingdom
+```{r, echo=FALSE}
+# load data
+data <- "~/daur2wouter/kraken2/mock1/mock1_bracken_species.biom"
+merged_metagenomes <- import_biom(data)
+#View(merged_metagenomes@tax_table@.Data)
+
+# remove taxonomy information from values/ remove first four characters
+merged_metagenomes@tax_table@.Data <-
+  substring(merged_metagenomes@tax_table@.Data, 4)
+
+# rename column header to informative format
+colnames(merged_metagenomes@tax_table@.Data) <- 
+  c("Kingdom", "Phylum", "Class", "Order", "Family", "Genus", "Species")
+
+# inspect data format
+#View(merged_metagenomes@tax_table@.Data)
+
+# retrieve the present taxonomic kingdoms from our data
+unique(merged_metagenomes@tax_table@.Data[,"Kingdom"])
+
+# separate all kingdoms in seperate values
+merged_metagenomes_b <- subset_taxa(merged_metagenomes, Kingdom == "Bacteria")
+merged_metagenomes_e <- subset_taxa(merged_metagenomes, Kingdom == "Eukaryota")
+merged_metagenomes_a <- subset_taxa(merged_metagenomes, Kingdom == "Archaea")
+merged_metagenomes_v <- subset_taxa(merged_metagenomes, Kingdom == "Viruses")
+
+# provide informative header
+sample_names(merged_metagenomes_b) <- "Bacteria"
+sample_names(merged_metagenomes_e) <- "Eukaryota"
+sample_names(merged_metagenomes_a) <- "Archaea"
+sample_names(merged_metagenomes_v) <- "Viruses"
+
+# count how many reads per kingdom
+c(sample_sums(merged_metagenomes_b), sample_sums(merged_metagenomes_e), sample_sums(merged_metagenomes_a), sample_sums(merged_metagenomes_v))
+
+# collect kingdoms seperately in data frames
+data_b <- data.frame(Samples = sample_names(merged_metagenomes_b),
+                   Reads = sample_sums(merged_metagenomes_b))
+
+data_e <- data.frame(Samples = sample_names(merged_metagenomes_e),
+                   Reads = sample_sums(merged_metagenomes_e))
+
+data_a <- data.frame(Samples = sample_names(merged_metagenomes_a),
+                   Reads = sample_sums(merged_metagenomes_a))
+
+data_v <- data.frame(Samples = sample_names(merged_metagenomes_v),
+                   Reads = sample_sums(merged_metagenomes_v))
+
+# merge kingdom data in to one data frame
+data_t <- rbind(data_b, data_e, data_a, data_v)
+data_t
+
+# plot number of reads per kingdom
+ggplot(data = data_t, mapping = aes(x = Samples, y = Reads, fill = Samples )) +
+  geom_col() +
+  theme_classic() +
+  ggtitle("Read count per kingdom") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme(axis.text.x=element_text(angle=45, hjust=1))
+```
+
+### read count per species
+```{r}
+# reload the biom data, edit column headers and sample name
+merged_metagenomes <- import_biom(data)
+merged_metagenomes@tax_table@.Data <- substring(merged_metagenomes@tax_table@.Data, 4)
+colnames(merged_metagenomes@tax_table@.Data)<- c("Kingdom", "Phylum", "Class", "Order", "Family", "Genus", "Species")
+colnames(merged_metagenomes@otu_table) <- c("mock1")
+
+# check empty labels (empty = TRUE)
+summary(merged_metagenomes@tax_table@.Data== "")
+```
