@@ -11,6 +11,7 @@ library(tidyverse)
 library(readxl)
 library(here)
 library(ggplot2)
+library(dplyr)
 ```
 
 # opdracht 1.1
@@ -65,7 +66,7 @@ compConcentration is still a character value which will be read as seperate grou
 Correct this and than look at the graph again. Use a log10 transformation on the x-axis to get a clear graph. Also, add a bit of jitter to the points in the graph so that points are not overlapping.
 
 ### Answer
-```{r warning=FALSE}
+```{r, warning=FALSE}
 # check the unique values in column compConcentration and see that some of the values are in scientific notation which causes the values to be read as character instead of numeric
 unique(data$compConcentration)
 
@@ -109,8 +110,18 @@ Think about how you would analyze this experiment to learn whether there is inde
 Normalize the data for the controlNegative in such a way that the mean value for controlNegative is exactly equal to 1 and that all other values are expressed as a fraction thereof. Rerun your graphs with the normalized data.
 
 ### Answer
-```{r}
-#data_norm <- data %>% 
+```{r, warning=FALSE}
+# get mean of controlNegative in column expType
+norm <- data %>% group_by(expType) %>% summarise_at(vars(RawData), list(name=mean))
+
+# create new column with normalized data
+norm_data <- data %>% mutate(norm_RawData= RawData / as.numeric(norm[1,2]))
+
+# create normalized scatterplot
+norm_data %>%
+  ggplot(aes(x= compConcentration, y= norm_RawData, color= compName, shape= expType)) +
+  geom_jitter(position = position_jitter(0.05)) +
+  scale_x_log10(limits=c(0.01,100))
 ```
 
 ## k)
