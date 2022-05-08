@@ -30,7 +30,18 @@ Hadro techniek, assemblage medewerker, september 2017 tot augustus 2018 <br>
 Van Vliet The Candy Company, orderpicker, juni 2017 tot september 2017 <br>
 Mc Donalds Bodegraven, crewlid, mei 2016 tot juni 2017
 
-## Talen:
+## vaardigheden:
+
+### programeertalen:
+R <br>
+Bash <br>
+
+### programma's:
+Rstudio <br>
+Excel <br>
+SPSS
+
+### talen:
 Nederlands (moedertaal) <br>
 Engels (vloeiend)
 
