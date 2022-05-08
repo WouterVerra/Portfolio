@@ -1,0 +1,39 @@
+---
+title: "CV_WouterVerra"
+author: "WouterVerra"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## algemene informatie
+Naam:			Wouter Verra <br>
+Adres: 			- <br>
+Telefoonnummer: 	- <br>
+E-mailadres: 		- <br>
+Geboortedatum: 	10 April 1996 <br>
+Geslacht: 		Man <br>
+Nationaliteit: 		Nederlandse <br>
+Burgerlijke staat: 	Ongehuwd <br>
+
+## Opleidingen:
+Biologisch en Medisch Laboratorium Onderzoek te Utrecht, september 2018 tot heden <br>
+Keltische Talen en Cultuur te Utrecht, september 2016 tot mei 2016 <br>
+University Foundation Year (afgerond) Education First te Oxford, September 2015 tot mei 2016 <br>
+VWO (afgerond) Marecollege te Leiden, September 2007 tot juni 2015 <br>
+
+## Werkervaring:
+Hadro techniek, assemblage medewerker, september 2017 tot augustus 2018 <br>
+Van Vliet The Candy Company, orderpicker, juni 2017 tot september 2017 <br>
+Mc Donalds Bodegraven, crewlid, mei 2016 tot juni 2017
+
+## Talen:
+Nederlands (moedertaal) <br>
+Engels (vloeiend)
+
+## Hobby’s:
+Roeien <br>
+Boulderen
