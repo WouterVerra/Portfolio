@@ -1,0 +1,6 @@
+formatieve metagenomics opdracht
+gemaakt door wouter verra 4 april 2022
+
+rmarkdown en resulterend html bestand is te vinden in deze folder (metagenomics) inclusief een folder (data) met de data die nodig is voor de analyse
+
+in de (data) folder zit een folder (bracken) met bracken data, een folder (fastqcMG) met fastqc resultaten, en een folder (kraken2) met een kraken2 dataset. ook zijn er twee afbeeldingen (per_base_quality*.png) die nodig zijn voor het rmarkdown bestand. Als laatste is er nog setup_meta_env.yml waarin de informatie staat om een nieuwe bash environment te maken voor deze analyse
