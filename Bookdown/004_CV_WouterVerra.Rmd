@@ -5,9 +5,10 @@ date: "`r Sys.Date()`"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
+```{r, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+# CV
 
 ## algemene informatie
 Naam:			Wouter Verra <br>

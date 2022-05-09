@@ -5,11 +5,11 @@ date: '2022-05-09'
 output: html_document
 ---
 
-```{r setup, include=FALSE}
+```{r, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# assignment 3
+# Assignment 3
 In deze opdracht moet dit portfolio op github gezet worden en een CV aangemaakt worden. 
 
 ### de opdracht:
