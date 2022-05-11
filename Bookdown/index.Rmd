@@ -5,7 +5,9 @@ site: bookdown::bookdown_site
 documentclass: book
 new_session: yes
 output:
-  bookdown::gitbook: default
+  bookdown::gitbook:
+    fontsettings:
+      theme: night
   #bookdown::pdf_book: default
 ---
 
