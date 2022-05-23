@@ -1,0 +1,30 @@
+---
+title: "assignment_2"
+author: "Wouter"
+date: '2022-05-09'
+output: html_document
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(fs)
+library(here)
+```
+
+# Assignment 2
+In deze opdracht moest een guerilla framwork worden toegepast aan de data van een voorafgaand vak. 
+
+de opdracht: 
+Look at your RStudio project that you created for the DAUR-II assignments
+
+download your folders (not the HUGE datafiles and kraken-database!) and rearrange your project according the Guerilla principles explained above
+
+for the data… folders: provide only a readme.txt with all the info you would normally put there + where the data is stored
+
+Provide study documentation and meta data.
+
+Use the {fs} package to share a screenshot of your folder tree in your portfolio.
+
+```{r}
+fs::dir_tree(here::here("assignment_2", "daur2wouter"))
+```

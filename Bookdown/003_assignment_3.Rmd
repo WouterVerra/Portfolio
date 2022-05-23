@@ -1,10 +1,22 @@
+---
+title: "assignment_3"
+author: "Wouter"
+date: '2022-05-09'
+output: html_document
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Assignment 3
 In deze opdracht moet dit portfolio op github gezet worden en een CV aangemaakt worden. 
 
-de opdracht: 
+### de opdracht:
 Create a Git repository on GitHub for your portfolio.
 Subsequently, clone the GitHub repository to your computer. Copy paste your portfolio-Rmd-files to this folder. You will see the new files showing up in the “git” window in the upper right of the screen in Rstudio. Commit/push the changes to your repo.
 
 Now start building your CV in a new Rmarkdown file and keep using github for version control. Remember to commit often, and push your changes! Build something that you would want to send to a possible future bioinformatics internship position, or when job hunting. So it needs to be complete and professional looking.
 You can look around online for examples of cv’s (/resume). Your cv will be part of your portfolio.
 
-Voor CV zie CV_WouterVerra.Rmd in deze folder(assignment_3). 
+Voor CV zie CV_WouterVerra.Rmd in deze folder(assignment_3) of in bookdown hieronder. 
