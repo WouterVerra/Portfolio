@@ -17,6 +17,12 @@ library(here)
 
 # parameterization of Rmarkdown documents
 
+```{r, eval=FALSE}
+# onuitgevoerd blok om makkelijk zelf de parameters van dit bestand aan te passen
+rmarkdown::render(here("assignment_9", "assignment_9.Rmd"), params = list(country = "Greece", year = 2021, month = 6))
+```
+
+
 ```{r}
 # read  in csv with covid data
 covid_data <- read.csv(here("assignment_9", "data.csv"))
