@@ -1,5 +1,5 @@
 bookdown
-assignment-1
+data-analyse-voorbeeld
 a
 answer
 b
@@ -19,8 +19,8 @@ j
 answer-7
 k
 answer-8
-assignment-2
-assignment-3
+guerilla-framework-data-beheer
+github
 de-opdracht
 cv
 algemene-informatie
@@ -31,5 +31,8 @@ programeertalen
 programmas
 talen
 hobbys
-parameterization-of-rmarkdown-documents
+zelfgemaakte-r-package
 de-opdracht-1
+resultaat
+geparameteriseerde-rmarkdown
+de-opdracht-2

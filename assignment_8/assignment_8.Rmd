@@ -9,7 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Zelfgemaakte R package
+# Assignment 8
 In deze opdracht moet een r package gemaakt worden. 
 
 ### de opdracht:

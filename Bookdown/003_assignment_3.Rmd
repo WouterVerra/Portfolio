@@ -9,7 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Assignment 3
+# Github
 In deze opdracht moet dit portfolio op github gezet worden en een CV aangemaakt worden. 
 
 ### de opdracht:

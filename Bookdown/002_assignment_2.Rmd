@@ -11,8 +11,8 @@ library(fs)
 library(here)
 ```
 
-# Assignment 2
-In deze opdracht moest een guerilla framwork worden toegepast aan de data van een voorafgaand vak. 
+# Guerilla framework data beheer
+In deze opdracht moest een guerilla framework worden toegepast aan de data van een voorafgaand vak. 
 
 de opdracht: 
 Look at your RStudio project that you created for the DAUR-II assignments
