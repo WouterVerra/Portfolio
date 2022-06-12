@@ -29,3 +29,9 @@ your new package should at least include:
 
 ### resultaat:
 Voor het package zie repository: explorers op profile: WouterVerra
+zie ook de soccer dataset die bijgevoegd is aan de package.
+
+```{r eval=FALSE}
+devtools::install_github("WouterVerra/explorers", build_vignettes = TRUE)
+```
+
