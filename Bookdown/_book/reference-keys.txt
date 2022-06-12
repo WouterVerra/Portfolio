@@ -31,3 +31,5 @@ programeertalen
 programmas
 talen
 hobbys
+parameterization-of-rmarkdown-documents
+de-opdracht-1

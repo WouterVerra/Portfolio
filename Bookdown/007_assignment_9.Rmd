@@ -30,7 +30,7 @@ The aim of this assignment is to create an RMardown file containing a parameteri
 
 The country to which the report applies to, The year that the reported data applies to, The period in months that the report applies to.
 
-Here is where you can find the ECDC data: [here:](https://www.ecdc.europa.eu/en/covid-19/data)
+Here is where you can find the ECDC data: [here](https://www.ecdc.europa.eu/en/covid-19/data)
 
 The minimum requirements for the report is that next to the three parameters mentioned above, it should include at least one graph for the COVID-19 cases and one graph for the COVID-19 related deaths. After writing the Rmd, you should be able to render it with parameters set to any value you like.
 

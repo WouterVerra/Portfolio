@@ -1,0 +1,31 @@
+---
+title: "assignment_3"
+author: "Wouter"
+date: '2022-05-09'
+output: html_document
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Assignment 8
+In deze opdracht moet een r package gemaakt worden. 
+
+### de opdracht:
+your new package should at least include:
+
+1) A properly formatted DESCRIPTION file with all the fields including relevant information (so change the default values), 
+
+2) 4 different functions that you wrote and with proper documentation, using roxygen2 comments, 
+
+3) A NAMESPACE file, generated with the command devtools::document(), 
+
+4) 1 Raw dataset that is documented and cleaned into a clean dataset. This clean dataset should be accessible inside your package. This means that if I install your package from Github, I would be able to call data(<dataset_name>, <package_name>) to load the cleaned dataset of interest in the Global Environment, 
+
+5) One vignette that is accessible via the command browseVignettes(<package_name>) or vignette(<package_name>), 
+
+6) The package installs from Github without errors when I run: devtools::install_github("account_name/package_name")
+
+### resultaat:
+Voor het package zie repository: explorers op profile: WouterVerra

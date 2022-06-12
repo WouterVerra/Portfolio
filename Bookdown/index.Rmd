@@ -4,6 +4,10 @@ author: "Frida Gomam"
 site: bookdown::bookdown_site
 documentclass: book
 new_session: yes
+params:
+  country: "Austria"
+  year: 2022
+  month: 3
 output:
   bookdown::gitbook:
     fontsettings:
