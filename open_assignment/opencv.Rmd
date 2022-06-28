@@ -1,0 +1,79 @@
+---
+title: "opencv"
+author: "Wouter"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(reticulate)
+
+use_python("C:/Gebruikers/Gebruiker/Appdata/Local/Programs/Python/Python310/python.exe", required = TRUE)
+```
+
+# opencv
+
+https://stackoverflow.com/questions/64249918/how-to-detect-pixel-location-of-object-given-mask-opencv-python
+
+https://www.youtube.com/watch?v=ddSo8Nb0mTw&list=PLzMcBGfZo4-lUA8uGjeXhBUUzPYc6vZRn&index=5
+
+```{python results='hide'}
+import cv2
+import numpy as np
+
+cap = cv2.VideoCapture('0115_LH39_d1_t4.mpg') # laad de video in 
+
+while True:
+  ret, frame = cap.read() # leest de afbeelding van de video
+  width = int(cap.get(3)) # geeft de breedte van de afbeelding in pixels
+  height = int(cap.get(4)) # geeft de hoogte van de afbeelding in pixels
+  
+  # img = cv2.line(frame, (0,0), (width, height), (255,0,0), 10) # teken een lijn
+  
+  img = cv2.circle(frame, (640,480), 435, (0,0,255), 20) # teken een cirkel
+  
+  hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV) # zet afbeelding om van bgr naar hsv
+  lower_black = np.array([0, 0, 0])
+  upper_black = np.array([360, 100, 100])
+  
+  mask = cv2.inRange(hsv, lower_black, upper_black)
+  result = cv2.bitwise_and(frame, frame, mask=mask)
+  # gray_mask = cv2.cvtColor(mask, cv2.COLOR_)
+  
+  gray_result = cv2.cvtColor(result, cv2.COLOR_BGR2GRAY)
+  
+  ret, thresh = cv2.threshold(gray_result, 127,255,0)
+  
+  im2, contours, hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+  
+  for c in contours:
+       # calculate moments for each contour
+       M = cv2.moments(c)
+
+        # calculate x,y coordinate of center
+       cX = int(M["m10"] / M["m00"])
+       cY = int(M["m01"] / M["m00"])
+       cv2.circle(result, (cX, cY), 5, (255, 255, 255), -1)
+       
+  
+  
+  
+ 
+  
+  cv2.imshow('watermaze line', result) # laat de gemanipuleerde afbeelding zien
+  
+  if cv2.waitKey(1) == ord('q'): # als je op q drukt terwijl dit runt ga je uit de loop
+    break
+  
+cap.release() # laat de capture los zodat het niet op de achtergrond nog resources gebruikt
+cv2.destroyAllWindows() # verwijdert de pagina
+
+# img = cv2.imread('Knipsel3.PNG', -1) # laat een afbeelding in
+
+# cv2.imshow('Image', img) # laat de afbeelding zien
+# cv2.waitKey(0) # wacht oneindig lang totdat er een toets wordt ingedrukt en daarna wordt de code pas verder gelezen
+# cv2.destroyAllWindows() # verwijdert de pagina
+```
+
