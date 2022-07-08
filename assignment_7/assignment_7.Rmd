@@ -1,0 +1,85 @@
+---
+title: "assignment_7"
+author: "Wouter"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(here)
+library(dslabs)
+library(readr)
+library(DBI)
+```
+
+# assignment_7
+
+1. Load the flu (“./data/flu_data.csv), the dengue (.”/data/dengue_data.csv) and the gapminder ({dslabs} package) into three separate dataframes in R
+
+```{r}
+# lees de data in
+fluDf <- read_csv(here("assignment_7", "flu_data.csv"), skip = 11)
+dengueDf <- read_csv(here("assignment_7", "dengue.csv"), skip = 11)
+gapminderDf <- data.frame(gapminder)
+
+# maak de griep en dengue data tidy want er zaten meerdere observaties op 1 rij
+tidyFlu <- fluDf %>% pivot_longer(cols=tail(colnames(fluDf), n= 29), names_to= "country", values_to= "activity")
+tidyDengue <- dengueDf %>% pivot_longer(cols= tail(colnames(dengueDf), n= 10), names_to= "country", values_to= "activity")
+
+# maak de datatype voor de country en year kolommen hetzelfde over de verschillende tabellen
+gapminderDf$country <- as.character(gapminderDf$country)
+tidyFlu$Date <- as.numeric(substr(tidyFlu$Date,1,4))
+tidyDengue$Date <- as.numeric(substr(tidyDengue$Date,1,4))
+
+# kijk of de datatypes nu overeenkomen en verken verder de data
+summary(tidyDengue)
+summary(tidyFlu)
+summary(gapminderDf)
+```
+
+```{r, eval=FALSE}
+# sla de gecleande data op
+write_csv(tidyFlu, here("assignment7", "tidyFlu.csv"), row.names = FALSE)
+write_csv(tidyDengue, path= here("assignment7", "tidyDengue.csv"), append=FALSE)
+write_csv(gapminderDf, path= here("assignment7", "gapminderDf.csv"), append=FALSE)
+write_rds(tidyFlu, path= here("assignment7", "tidyFlu.rds"), append=FALSE)
+write_rds(tidyDengue, path= here("assignment7", "tidyDengue.rds"), append=FALSE)
+write_rds(gapminderDf, path= here("assignment7", "gapminderDf.rds"), append=FALSE)
+```
+
+```{r, eval=FALSE}
+# maak een con object als connectie maar dan met het eigen wachtwoord
+con <- dbConnect(RPostgres::Postgres(),
+                 dbname = "workflowsdb",
+                 host="localhost",
+                 port="5432",
+                 user="postgres",
+                 password="password")
+
+# laad de tabellen in de database in
+dbWriteTable(con, "tidyFlu", read_csv(here("assignment_7", "tidyFlu.csv")))
+dbWriteTable(con, "tidyDengue", read_csv(here("assignment_7", "tidyDengue.csv")))
+dbWriteTable(con, "gapminderDf", read_csv(here("assignment_7", "gapminderDf.csv")))
+```
+
+5. In Dbeaver create a new PostgreSQL database “workflowsdb”
+
+6. Using RPostgreSQL, insert the tables into the database.
+
+7. Inspect the contents of the tables with SQL (in DBeaver) and save the SQL script.
+
+8. Inspect the contents of the tables with dplyr (in R) and save a RMarkdown showing what you are doing.
+
+9. Load the gapminder data in R and change the dataframe in such as way that you could join it to dengue and flu.
+
+10. Save this clean gapminder data in the “workflowsdb” database
+
+11. Perform some joins (your choice) with SQL (can be done in DBeaver or with dplyr.
+
+12. Generate a joined table, and export this from the database to R.
+
+13. Show some descriptive statistics with this table, and at least 3 visualisations using ggplot2.
+
+14. Write a short report to show at least the actions listed in this assignment in a Rmd file for your portfolio. Include pictures and provide text explaining and showcasing your skills.
