@@ -1,0 +1,27 @@
+---
+title: "assignment_1.2"
+author: "Wouter"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(here)
+library(DT)
+```
+
+# assignment 1.2
+
+```{r echo=FALSE}
+# read de csv van de criteria van de peer review opdracht
+tabel <- read.csv2(here(
+  "assignment_1.2",
+  "criteriaTabel.csv"
+))
+
+# laat de peer review criteria zien
+DT::datatable(tabel)
+```
+
