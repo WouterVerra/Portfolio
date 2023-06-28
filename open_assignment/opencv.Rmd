@@ -9,6 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 
 library(reticulate)
+library(embedr)
 
 use_python("C:/Gebruikers/Gebruiker/Appdata/Local/Programs/Python/Python310/python.exe", required = TRUE)
 ```
@@ -19,61 +20,80 @@ https://stackoverflow.com/questions/64249918/how-to-detect-pixel-location-of-obj
 
 https://www.youtube.com/watch?v=ddSo8Nb0mTw&list=PLzMcBGfZo4-lUA8uGjeXhBUUzPYc6vZRn&index=5
 
-```{python results='hide'}
+https://www.youtube.com/watch?v=cMJwqxskyek
+
+https://www.youtube.com/watch?v=phCfJiM--f8
+
+https://www.youtube.com/watch?v=0DwzsI6q31w
+
+https://docs.opencv.org/3.4/dd/d49/tutorial_py_contour_features.html
+
+https://rdrr.io/github/mccarthy-m-g/embedr/man/embed_video.html
+
+```{python eval=FALSE, results='hide'}
 import cv2
 import numpy as np
 
-cap = cv2.VideoCapture('0115_LH39_d1_t4.mpg') # laad de video in 
+cap = cv2.VideoCapture('0115_LH39_d1_t4.mp4') # laad de video in 
+out = cv2.VideoWriter('output.avi', cv2.VideoWriter_fourcc(*'MJPG'), 30.0, (int(cap.get(3)), int(cap.get(4))))
 
 while True:
-  ret, frame = cap.read() # leest de afbeelding van de video
-  width = int(cap.get(3)) # geeft de breedte van de afbeelding in pixels
-  height = int(cap.get(4)) # geeft de hoogte van de afbeelding in pixels
+  # leest de afbeelding van de video
+  ret, frame = cap.read() 
   
-  # img = cv2.line(frame, (0,0), (width, height), (255,0,0), 10) # teken een lijn
+  # teken een cirkel zodat de achtergrond niet wordt meegenomen in de mask
+  img = cv2.circle(frame, (640,480), 660, (255,255,255), 400) 
   
-  img = cv2.circle(frame, (640,480), 435, (0,0,255), 20) # teken een cirkel
+  # zet afbeelding om van bgr naar hsv zodat opencv er mee kan werken
+  hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV) 
   
-  hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV) # zet afbeelding om van bgr naar hsv
-  lower_black = np.array([0, 0, 0])
-  upper_black = np.array([360, 100, 100])
+  # bepaal de uiterste kleuren voor de mask
+  dark_black = np.array([0, 0, 0]) 
+  light_black = np.array([0, 0, 60])
   
-  mask = cv2.inRange(hsv, lower_black, upper_black)
+  # de mask bepaalt welke kleuren in range zijn en maakt hier een binaire afbeelding van
+  mask = cv2.inRange(hsv, dark_black, light_black)
   result = cv2.bitwise_and(frame, frame, mask=mask)
-  # gray_mask = cv2.cvtColor(mask, cv2.COLOR_)
   
-  gray_result = cv2.cvtColor(result, cv2.COLOR_BGR2GRAY)
+  # vind de contouren
+  contours, hierarchy = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
   
-  ret, thresh = cv2.threshold(gray_result, 127,255,0)
+  if len(contours) !=0:
+    for contour in contours: 
+      if cv2.contourArea(contour) > 500: 
+        (x, y), radius = cv2.minEnclosingCircle(contour) 
+        center = (int(x), int(y)) 
+        radius = int(radius) 
+        cv2.circle(frame, center, radius, (0,255,0), 4)
   
-  im2, contours, hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+  # sla de video op
+  out.write(frame)
   
-  for c in contours:
-       # calculate moments for each contour
-       M = cv2.moments(c)
-
-        # calculate x,y coordinate of center
-       cX = int(M["m10"] / M["m00"])
-       cY = int(M["m01"] / M["m00"])
-       cv2.circle(result, (cX, cY), 5, (255, 255, 255), -1)
-       
+  # laat de video zien in een popup als watermaze result
+  cv2.imshow('watermaze result', frame) 
   
-  
-  
- 
-  
-  cv2.imshow('watermaze line', result) # laat de gemanipuleerde afbeelding zien
-  
-  if cv2.waitKey(1) == ord('q'): # als je op q drukt terwijl dit runt ga je uit de loop
+  # als je op q drukt sluit de loop vroegtijdig af
+  if cv2.waitKey(1) == ord('q'): 
     break
-  
-cap.release() # laat de capture los zodat het niet op de achtergrond nog resources gebruikt
-cv2.destroyAllWindows() # verwijdert de pagina
-
-# img = cv2.imread('Knipsel3.PNG', -1) # laat een afbeelding in
-
-# cv2.imshow('Image', img) # laat de afbeelding zien
-# cv2.waitKey(0) # wacht oneindig lang totdat er een toets wordt ingedrukt en daarna wordt de code pas verder gelezen
-# cv2.destroyAllWindows() # verwijdert de pagina
+    
+cap.release() 
+out.release()
+cv2.destroyAllWindows() 
 ```
+
+```{r echo=FALSE}
+embed_video(src = "C:\\Users\\Gebruiker\\Documents\\hu\\datascience\\dsfb2\\Portfolio\\open_assignment\\0115_LH39_d1_t4.mp4", type = c("mp4"), width = "640", height = "480", attribute = c("controls", "autoplay"))
+
+embed_video(src = "C:\\Users\\Gebruiker\\Documents\\hu\\datascience\\dsfb2\\Portfolio\\open_assignment\\correcteOutput.mp4", type = c("mp4"), width = "640", height = "480", attribute = c("controls", "autoplay"))
+```
+
+
+
+
+
+
+
+
+
+
 
