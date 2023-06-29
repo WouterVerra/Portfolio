@@ -16,21 +16,12 @@ library(dplyr)
 
 # opdracht 1.1
 
-The data for this exercise was kindly supplied by J. Louter (INT/ILC) and was derived from an experiment in which adult C.elegans nematodes were exposed to varying concentrations of different compounds. The variables RawData (the outcome - number of offspring counted as an integer value, after incubation time), compName (the generic name of the compound/chemical), the compConcentration (the concentration of the compound), and the expType are the most important variables in this dataset.
+Hieronder wordt een dosis respons analyse uitgevoerd. Tijdens het kijken naar de data voor deze analyse valt op dat er wat datapunten missen in rij 192-196 en dat sommige kolommen volledig dezelfde data bevatten wat beter in een metadata bestand gezet had kunnen worden. 
 
-A typical analysis with this data would be to run a dose-response analysis using a log-logistic model with estimates for the maximal, the minimal, the IC50 concentration and the slope at IC50. We will not go into the details but a good package to run such computations and create graphs in R is the {drc} package. See: and:. In the exercise below we will create some visualizations using {ggplot2}.
+Als eerste wordt de data ingeladen in R. 
 
-## a)
-Review the following Excel file in the ./data/CE.LIQ.FLOW.062_Tidydata.xlsx (it’s here), by opening the file in Excel. See if you can spot anything peculiar about this file. Do not edit the file in any way. Just close it when you are done. (Annoyingly, Excel asks you to save your changes, even if you did not touch anything in the file.)
-
-### Answer
-There are some missing data points in the column "RawData" row 192-196 and there are some rows which have the same value for everything. That could just be in a metadata file instead of a seperate column for everything
-
-## b)
-Open the file in R, using the {readxl} package.
-
-### Answer
 ```{r}
+# inladen data
 data <- read_excel(here(
   "assignment_1",
   "raw_data",
@@ -38,39 +29,25 @@ data <- read_excel(here(
 ))
 ```
 
-## c)
-Inspect the data types of columns RawData, compName and compConcentration. What types would you expect from the experimental description above. Have the data types been correctly assigned during the importing of the data into R?
-
-### Answer
-RawData was already a double, compConcentration was not a double as expected because of the scientific notation introduced by excel during import; This was changed into numeric notation. The compName could easily be changed into a factor which is to be expected in this data set. 
-
-## d)
-Create a graph displaying a scatterplot for the CE.LIQ.FLOW.062_Tidydata.xlsx data, for the different compounds and the varying concentrations. Put the compConcentration on the x-axis, the DataRaw counts on the y-axis and assign a colour to each level in compName. Assign a different symbol (shape =) to each level in the expType variable. Try fixing the labels of the x-axis so that we can read them
+Hierna wordt van de ongefilterde data een scatterplot gemaakt om de data te ontdekken.
 
 ### Answer
 ```{r, warning=FALSE}
-# create scatterplot graph with unfiltered data
+# maak een scatterplot met de ongefilterde data
 data %>%
   ggplot(aes(x= compConcentration, y= RawData, color= compName, shape= expType)) +
-  geom_point()
+  geom_point() + 
+  theme(axis.text.x = element_text(angle =45, hjust = 1))
 ```
 
-## e)
-When creating the plot under d), what happened with the ordering of the x-axis labels. Explain why this happens. Look at the data-type of the compConcentration column in the data again to find a clue.
-
-### Answer
-
-compConcentration is still a character value which will be read as seperate groups instead of numeric values.
-
-## f)
-Correct this and than look at the graph again. Use a log10 transformation on the x-axis to get a clear graph. Also, add a bit of jitter to the points in the graph so that points are not overlapping.
+De data van de x-as is character in plaats van numeriek omdat het als wetenschappelijke notatie is geimporteerd, Dit moet aangepast worden. Hierna kan dezelfde grafiek nog een keer gemaakt worden maar dan met een logaritmische schaal op de x-as.
 
 ### Answer
 ```{r, warning=FALSE}
-# check the unique values in column compConcentration and see that some of the values are in scientific notation which causes the values to be read as character instead of numeric
+# controleer de unieke waardes van de kolom compConcentration, hierin is te zien dat sommige waardes in wetenschappelijke notatie staan waardoor ze als character worden gelezen
 unique(data$compConcentration)
 
-# change the scientifically notated values in numeric values
+# verander de waardes met wetenschappelijke notatie naar normale notatie
 data["compConcentration"][data["compConcentration"] == "1.95E-2"] <- "0.0195"
 data["compConcentration"][data["compConcentration"] == "4.9899999999999996E-3"] <- "0.0049899999999999996"
 data["compConcentration"][data["compConcentration"] == "4.9899999999999999E-4"] <- "0.00049899999999999999"
@@ -79,53 +56,39 @@ data["compConcentration"][data["compConcentration"] == "4.99E-2"] <- "0.0499"
 data["compConcentration"][data["compConcentration"] == "4.99E-5"] <- "0.0000499"
 data["compConcentration"][data["compConcentration"] == "1.95E-4"] <- "0.000195"
 
-# change global options to not have scientific notation in as.numeric function
+# verander de global options om geen wetenschappelijke notatie in de as.numeric function te hebben
 options(scipen=999)
 
-# once again check the unique values; they can now be changed into numeric values
+# controleer de unieke waardes nogmaals, de kolom kan nu omgezet worden naar numeriek
 unique(data$compConcentration)
 data$compConcentration <- as.numeric(data$compConcentration)
 
-# change column "compName" and "expType" into a factor
+# verander de kolommen "compName" en "expType" naar een factor
 data$compName <- as.factor(data$compName)
 data$expType <- as.factor(data$expType)
 
-# create scatterplot graph with a bit of jitter so points do not overlap
+# maak een scatterplot me een beetje jitter zodat de punten niet overlappen
 data %>%
   ggplot(aes(x= compConcentration, y= RawData, color= compName, shape= expType)) +
   geom_jitter(position = position_jitter(0.05)) +
   scale_x_log10(limits=c(0.01,100))
 ```
 
-## g) & h)
-Fill in: (g) The positive control for this experiments is Ethanol. (h) The negative control for this experiment is S-medium
+Allereerst moet deze data nog genormaliseert worden, Dit wordt gedaan door het gemiddelde van de negatieve controle naar 1 te zetten en alle andere waardes een verhouding daarvan te maken. Dit zodat er gekeken kan worden naar verhoudingen en niet naar absolute getallen.
 
-## i)
-Think about how you would analyze this experiment to learn whether there is indeed an effect of different concentrations on offspring count and whether the different compounds have a different curve (IC50). Write down your analysis as a step-wise plan.
-
-### Answer
-
-
-## j)
-Normalize the data for the controlNegative in such a way that the mean value for controlNegative is exactly equal to 1 and that all other values are expressed as a fraction thereof. Rerun your graphs with the normalized data.
-
-### Answer
 ```{r, warning=FALSE}
-# get mean of controlNegative in column expType
+# verkrijg het gemiddelde van de controlNegative in de kolom expType
 norm <- data %>% group_by(expType) %>% summarise_at(vars(RawData), list(name=mean))
 
-# create new column with normalized data
+# maak een nieuwe kolom met genormaliseerde data
 norm_data <- data %>% mutate(norm_RawData= RawData / as.numeric(norm[1,2]))
 
-# create normalized scatterplot
+# maak de genormaliseerde scatterplot
 norm_data %>%
   ggplot(aes(x= compConcentration, y= norm_RawData, color= compName, shape= expType)) +
   geom_jitter(position = position_jitter(0.05)) +
   scale_x_log10(limits=c(0.01,100))
 ```
 
-## k)
-Why would you want to take the step under J?
+De positieve controle voor dit experiment is ethanol en de negatieve controle is S-medium. Als je naar de grafiek kijkt lijkt 2,6-diisopropylnaphtalene langzaam maar zeker af te nemen terwijl naphtalene lang hoog blijft en opeens afvalt en decane juist het omgekeerde doet en snel afvalt en daarna daar blijft hangen. Er lijkt dus wel een correlatie te zijn tussen de concentratie compound en de hoeveelheid getelde nematoden. 
 
-### Answer
-Om de data te normaliseren, nu wordt gekeken naar de verhoudingen in plaats van de absolute getallen. 
