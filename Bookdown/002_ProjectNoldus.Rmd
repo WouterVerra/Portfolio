@@ -6,7 +6,7 @@ output: html_document
 bibliography: citations3.bib
 ---
 
-```{r setup, include=FALSE}
+```{r include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 

@@ -4,26 +4,26 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>assignment_9</title>
-  <meta name="description" content="assignment_9" />
+  <title>Computer vision morris watermaze</title>
+  <meta name="description" content="Computer vision morris watermaze" />
   <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="assignment_9" />
+  <meta property="og:title" content="Computer vision morris watermaze" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="assignment_9" />
+  <meta name="twitter:title" content="Computer vision morris watermaze" />
   
   
   
 
-<meta name="author" content="WouterVerra" />
+<meta name="author" content="Wouter" />
 
 
-<meta name="date" content="2022-06-12" />
+<meta name="date" content="2023-06-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 
-<link rel="next" href="data-analyse-voorbeeld.html"/>
+<link rel="next" href="cv-wouter-verra.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -52,6 +52,14 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.22/datatables.js"></script>
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
 
 
 <style type="text/css">
@@ -119,6 +127,28 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 </head>
 
@@ -132,73 +162,37 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Bookdown</a></li>
-<li class="chapter" data-level="2" data-path="data-analyse-voorbeeld.html"><a href="data-analyse-voorbeeld.html"><i class="fa fa-check"></i><b>2</b> Data analyse voorbeeld</a>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Portfolio</a></li>
+<li class="chapter" data-level="2" data-path="cv-wouter-verra.html"><a href="cv-wouter-verra.html"><i class="fa fa-check"></i><b>2</b> CV Wouter Verra</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="data-analyse-voorbeeld.html"><a href="data-analyse-voorbeeld.html#a"><i class="fa fa-check"></i><b>2.1</b> a)</a>
-<ul>
-<li class="chapter" data-level="2.1.1" data-path="data-analyse-voorbeeld.html"><a href="data-analyse-voorbeeld.html#answer"><i class="fa fa-check"></i><b>2.1.1</b> Answer</a></li>
+<li class="chapter" data-level="2.1" data-path="cv-wouter-verra.html"><a href="cv-wouter-verra.html#algemene-informatie"><i class="fa fa-check"></i><b>2.1</b> Algemene informatie</a></li>
+<li class="chapter" data-level="2.2" data-path="cv-wouter-verra.html"><a href="cv-wouter-verra.html#opleidingen"><i class="fa fa-check"></i><b>2.2</b> Opleidingen:</a></li>
+<li class="chapter" data-level="2.3" data-path="cv-wouter-verra.html"><a href="cv-wouter-verra.html#werkervaring"><i class="fa fa-check"></i><b>2.3</b> Werkervaring:</a></li>
+<li class="chapter" data-level="2.4" data-path="cv-wouter-verra.html"><a href="cv-wouter-verra.html#vaardigheden"><i class="fa fa-check"></i><b>2.4</b> Vaardigheden:</a></li>
+<li class="chapter" data-level="2.5" data-path="cv-wouter-verra.html"><a href="cv-wouter-verra.html#hobbys"><i class="fa fa-check"></i><b>2.5</b> Hobby’s:</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="data-analyse-voorbeeld.html"><a href="data-analyse-voorbeeld.html#b"><i class="fa fa-check"></i><b>2.2</b> b)</a>
+<li class="chapter" data-level="3" data-path="project-noldus.html"><a href="project-noldus.html"><i class="fa fa-check"></i><b>3</b> Project Noldus</a>
 <ul>
-<li class="chapter" data-level="2.2.1" data-path="data-analyse-voorbeeld.html"><a href="data-analyse-voorbeeld.html#answer-1"><i class="fa fa-check"></i><b>2.2.1</b> Answer</a></li>
+<li class="chapter" data-level="3.1" data-path="project-noldus.html"><a href="project-noldus.html#bibliografie"><i class="fa fa-check"></i><b>3.1</b> Bibliografie</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="data-analyse-voorbeeld.html"><a href="data-analyse-voorbeeld.html#c"><i class="fa fa-check"></i><b>2.3</b> c)</a>
+<li class="chapter" data-level="4" data-path="transparantie-peer-review.html"><a href="transparantie-peer-review.html"><i class="fa fa-check"></i><b>4</b> Transparantie peer review</a>
 <ul>
-<li class="chapter" data-level="2.3.1" data-path="data-analyse-voorbeeld.html"><a href="data-analyse-voorbeeld.html#answer-2"><i class="fa fa-check"></i><b>2.3.1</b> Answer</a></li>
+<li class="chapter" data-level="4.1" data-path="transparantie-peer-review.html"><a href="transparantie-peer-review.html#bibliografie-1"><i class="fa fa-check"></i><b>4.1</b> Bibliografie:</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="data-analyse-voorbeeld.html"><a href="data-analyse-voorbeeld.html#d"><i class="fa fa-check"></i><b>2.4</b> d)</a>
+<li class="chapter" data-level="5" data-path="guerrilla-framework.html"><a href="guerrilla-framework.html"><i class="fa fa-check"></i><b>5</b> Guerrilla framework</a>
 <ul>
-<li class="chapter" data-level="2.4.1" data-path="data-analyse-voorbeeld.html"><a href="data-analyse-voorbeeld.html#answer-3"><i class="fa fa-check"></i><b>2.4.1</b> Answer</a></li>
+<li class="chapter" data-level="5.1" data-path="guerrilla-framework.html"><a href="guerrilla-framework.html#bibliografie-2"><i class="fa fa-check"></i><b>5.1</b> Bibliografie:</a></li>
 </ul></li>
-<li class="chapter" data-level="2.5" data-path="data-analyse-voorbeeld.html"><a href="data-analyse-voorbeeld.html#e"><i class="fa fa-check"></i><b>2.5</b> e)</a>
+<li class="chapter" data-level="6" data-path="dosis-response-analyse.html"><a href="dosis-response-analyse.html"><i class="fa fa-check"></i><b>6</b> Dosis response analyse</a></li>
+<li class="chapter" data-level="7" data-path="sql-data-analyse.html"><a href="sql-data-analyse.html"><i class="fa fa-check"></i><b>7</b> SQL data analyse</a></li>
+<li class="chapter" data-level="8" data-path="zelfgemaakte-package.html"><a href="zelfgemaakte-package.html"><i class="fa fa-check"></i><b>8</b> Zelfgemaakte package</a></li>
+<li class="chapter" data-level="9" data-path="parameterizatie-van-rmarkdown-documenten.html"><a href="parameterizatie-van-rmarkdown-documenten.html"><i class="fa fa-check"></i><b>9</b> Parameterizatie van Rmarkdown documenten</a>
 <ul>
-<li class="chapter" data-level="2.5.1" data-path="data-analyse-voorbeeld.html"><a href="data-analyse-voorbeeld.html#answer-4"><i class="fa fa-check"></i><b>2.5.1</b> Answer</a></li>
+<li class="chapter" data-level="9.1" data-path="parameterizatie-van-rmarkdown-documenten.html"><a href="parameterizatie-van-rmarkdown-documenten.html#bibliografie-3"><i class="fa fa-check"></i><b>9.1</b> Bibliografie</a></li>
 </ul></li>
-<li class="chapter" data-level="2.6" data-path="data-analyse-voorbeeld.html"><a href="data-analyse-voorbeeld.html#f"><i class="fa fa-check"></i><b>2.6</b> f)</a>
+<li class="chapter" data-level="10" data-path="computer-vision-morris-watermaze.html"><a href="computer-vision-morris-watermaze.html"><i class="fa fa-check"></i><b>10</b> Computer vision morris watermaze</a>
 <ul>
-<li class="chapter" data-level="2.6.1" data-path="data-analyse-voorbeeld.html"><a href="data-analyse-voorbeeld.html#answer-5"><i class="fa fa-check"></i><b>2.6.1</b> Answer</a></li>
-</ul></li>
-<li class="chapter" data-level="2.7" data-path="data-analyse-voorbeeld.html"><a href="data-analyse-voorbeeld.html#g-h"><i class="fa fa-check"></i><b>2.7</b> g) &amp; h)</a></li>
-<li class="chapter" data-level="2.8" data-path="data-analyse-voorbeeld.html"><a href="data-analyse-voorbeeld.html#i"><i class="fa fa-check"></i><b>2.8</b> i)</a>
-<ul>
-<li class="chapter" data-level="2.8.1" data-path="data-analyse-voorbeeld.html"><a href="data-analyse-voorbeeld.html#answer-6"><i class="fa fa-check"></i><b>2.8.1</b> Answer</a></li>
-</ul></li>
-<li class="chapter" data-level="2.9" data-path="data-analyse-voorbeeld.html"><a href="data-analyse-voorbeeld.html#j"><i class="fa fa-check"></i><b>2.9</b> j)</a>
-<ul>
-<li class="chapter" data-level="2.9.1" data-path="data-analyse-voorbeeld.html"><a href="data-analyse-voorbeeld.html#answer-7"><i class="fa fa-check"></i><b>2.9.1</b> Answer</a></li>
-</ul></li>
-<li class="chapter" data-level="2.10" data-path="data-analyse-voorbeeld.html"><a href="data-analyse-voorbeeld.html#k"><i class="fa fa-check"></i><b>2.10</b> k)</a>
-<ul>
-<li class="chapter" data-level="2.10.1" data-path="data-analyse-voorbeeld.html"><a href="data-analyse-voorbeeld.html#answer-8"><i class="fa fa-check"></i><b>2.10.1</b> Answer</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="3" data-path="guerilla-framework-data-beheer.html"><a href="guerilla-framework-data-beheer.html"><i class="fa fa-check"></i><b>3</b> Guerilla framework data beheer</a></li>
-<li class="chapter" data-level="4" data-path="github.html"><a href="github.html"><i class="fa fa-check"></i><b>4</b> Github</a>
-<ul>
-<li class="chapter" data-level="4.0.1" data-path="github.html"><a href="github.html#de-opdracht"><i class="fa fa-check"></i><b>4.0.1</b> de opdracht:</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="cv.html"><a href="cv.html"><i class="fa fa-check"></i><b>5</b> CV</a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="cv.html"><a href="cv.html#algemene-informatie"><i class="fa fa-check"></i><b>5.1</b> algemene informatie</a></li>
-<li class="chapter" data-level="5.2" data-path="cv.html"><a href="cv.html#opleidingen"><i class="fa fa-check"></i><b>5.2</b> Opleidingen:</a></li>
-<li class="chapter" data-level="5.3" data-path="cv.html"><a href="cv.html#werkervaring"><i class="fa fa-check"></i><b>5.3</b> Werkervaring:</a></li>
-<li class="chapter" data-level="5.4" data-path="cv.html"><a href="cv.html#vaardigheden"><i class="fa fa-check"></i><b>5.4</b> vaardigheden:</a>
-<ul>
-<li class="chapter" data-level="5.4.1" data-path="cv.html"><a href="cv.html#programeertalen"><i class="fa fa-check"></i><b>5.4.1</b> programeertalen:</a></li>
-<li class="chapter" data-level="5.4.2" data-path="cv.html"><a href="cv.html#programmas"><i class="fa fa-check"></i><b>5.4.2</b> programma’s:</a></li>
-<li class="chapter" data-level="5.4.3" data-path="cv.html"><a href="cv.html#talen"><i class="fa fa-check"></i><b>5.4.3</b> talen:</a></li>
-</ul></li>
-<li class="chapter" data-level="5.5" data-path="cv.html"><a href="cv.html#hobbys"><i class="fa fa-check"></i><b>5.5</b> Hobby’s:</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="zelfgemaakte-r-package.html"><a href="zelfgemaakte-r-package.html"><i class="fa fa-check"></i><b>6</b> Zelfgemaakte R package</a>
-<ul>
-<li class="chapter" data-level="6.0.1" data-path="zelfgemaakte-r-package.html"><a href="zelfgemaakte-r-package.html#de-opdracht-1"><i class="fa fa-check"></i><b>6.0.1</b> de opdracht:</a></li>
-<li class="chapter" data-level="6.0.2" data-path="zelfgemaakte-r-package.html"><a href="zelfgemaakte-r-package.html#resultaat"><i class="fa fa-check"></i><b>6.0.2</b> resultaat:</a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="geparameteriseerde-rmarkdown.html"><a href="geparameteriseerde-rmarkdown.html"><i class="fa fa-check"></i><b>7</b> Geparameteriseerde rmarkdown</a>
-<ul>
-<li class="chapter" data-level="7.0.1" data-path="geparameteriseerde-rmarkdown.html"><a href="geparameteriseerde-rmarkdown.html#de-opdracht-2"><i class="fa fa-check"></i><b>7.0.1</b> de opdracht:</a></li>
+<li class="chapter" data-level="10.1" data-path="computer-vision-morris-watermaze.html"><a href="computer-vision-morris-watermaze.html#bibliografie-4"><i class="fa fa-check"></i><b>10.1</b> Bibliografie</a></li>
 </ul></li>
 </ul>
 
@@ -209,7 +203,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">assignment_9</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Computer vision morris watermaze</a>
           </h1>
         </div>
 
@@ -218,13 +212,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="header">
-<h1 class="title">assignment_9</h1>
-<p class="author"><em>WouterVerra</em></p>
-<p class="date"><em>2022-06-12</em></p>
+<h1 class="title">Computer vision morris watermaze</h1>
+<p class="author"><em>Wouter</em></p>
+<p class="date"><em>2023-06-30</em></p>
 </div>
-<div id="bookdown" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">1</span> Bookdown<a href="index.html#bookdown" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Deze site bevat 5 opdrachten en een CV</p>
+<div id="portfolio" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">1</span> Portfolio<a href="index.html#portfolio" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Hallo! ik ben Wouter Verra, een student biologisch en medisch laboratorium onderzoek met een minor in bioinformatica. Deze site bevat mijn cv en een aantal voorbeelden van wat ik kan qua coderen. Als er verdere vragen zijn, stuur een mail naar: [redacted]</p>
 
 </div>
             </section>
@@ -233,7 +227,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 
-<a href="data-analyse-voorbeeld.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="cv-wouter-verra.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
