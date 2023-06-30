@@ -31,7 +31,6 @@ data <- read_excel(here(
 
 Hierna wordt van de ongefilterde data een scatterplot gemaakt om de data te ontdekken.
 
-### Answer
 ```{r, warning=FALSE}
 # maak een scatterplot met de ongefilterde data
 data %>%
@@ -42,7 +41,6 @@ data %>%
 
 De data van de x-as is character in plaats van numeriek omdat het als wetenschappelijke notatie is geimporteerd, Dit moet aangepast worden. Hierna kan dezelfde grafiek nog een keer gemaakt worden maar dan met een logaritmische schaal op de x-as.
 
-### Answer
 ```{r, warning=FALSE}
 # controleer de unieke waardes van de kolom compConcentration, hierin is te zien dat sommige waardes in wetenschappelijke notatie staan waardoor ze als character worden gelezen
 unique(data$compConcentration)

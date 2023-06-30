@@ -253,6 +253,28 @@ if (window.hljs) {
 
 
 
+<style type="text/css">
+/* for pandoc --citeproc since 2.11 */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 
 
@@ -370,29 +392,31 @@ pre code {
 </div>
 
 
-<div id="assignment-2" class="section level1">
-<h1>Assignment 2</h1>
-<p>In deze opdracht moest een guerilla framwork worden toegepast aan de
-data van een voorafgaand vak.</p>
-<p>de opdracht: Look at your RStudio project that you created for the
-DAUR-II assignments</p>
-<p>download your folders (not the HUGE datafiles and kraken-database!)
-and rearrange your project according the Guerilla principles explained
-above</p>
-<p>for the data… folders: provide only a readme.txt with all the info
-you would normally put there + where the data is stored</p>
-<p>Provide study documentation and meta data.</p>
-<p>Use the {fs} package to share a screenshot of your folder tree in
-your portfolio.</p>
+<p>Het guerrilla framework, <span class="citation">Ridge (2015)</span>
+is een manier om data consequent een locatie te geven in een file
+structure. Het heeft 7 principes, de eerste is: ruimte is goedkoop maar
+verwarring is duur. Dit houdt in dat het prima is om extra ruimte te
+gebruiken om bijvoorbeeld readmes toe te voegen omdat het veel sneller
+werkt. De volgende is: gebruik simpele visuele project structuren. De
+volgende is automatiseer zo veel mogelijk met code zodat het snel
+reproduceerbaar is. Verbind data in de analyse omgeving met de werk
+omgeving. Gebruik version control software zoals git/github. Maak
+duidelijke afspraken binnen het team over bijvoorbeeld de manier waarop
+bestanden genoemd worden of wat het principe van de bestanden structuur
+is. Gebruik code die van begin tot einde loopt dus waar niet nog
+halverwege handmatig iets aan aangepast hoeft te worden.</p>
+<p>Om hier een voorbeeld van te geven is hieronder de folder structuur
+van een voorgaande cursus gegeven:</p>
 <pre class="r"><code>fs::dir_tree(here::here(&quot;assignment_2&quot;, &quot;daur2wouter&quot;))</code></pre>
 <pre><code>## C:/Users/Gebruiker/Documents/hu/datascience/dsfb2/Portfolio/assignment_2/daur2wouter
 ## +-- assignment_2.html
 ## +-- assignment_2.Rmd
-## +-- fspackage.R
+## +-- citations.bib
 ## +-- metagenomics
 ## |   +-- data
 ## |   |   +-- bracken
-## |   |   |   \-- mock1.bracken
+## |   |   |   +-- mock1.bracken
+## |   |   |   \-- README
 ## |   |   +-- fastqcMG
 ## |   |   |   +-- HU1_MOCK1_L001_R1_001_fastqc
 ## |   |   |   |   +-- fastqc.fo
@@ -437,14 +461,17 @@ your portfolio.</p>
 ## |   |   |   |   |   \-- sequence_length_distribution.png
 ## |   |   |   |   \-- summary.txt
 ## |   |   |   +-- HU1_MOCK1_L001_R2_001_fastqc.html
-## |   |   |   \-- HU1_MOCK1_L001_R2_001_fastqc.zip
+## |   |   |   +-- HU1_MOCK1_L001_R2_001_fastqc.zip
+## |   |   |   \-- README
 ## |   |   +-- kraken2
-## |   |   |   \-- mock1
-## |   |   |       +-- mock1.report
-## |   |   |       +-- mock1_bracken_species.biom
-## |   |   |       \-- mock1_bracken_species.report
+## |   |   |   +-- mock1
+## |   |   |   |   +-- mock1.report
+## |   |   |   |   +-- mock1_bracken_species.biom
+## |   |   |   |   \-- mock1_bracken_species.report
+## |   |   |   \-- README
 ## |   |   +-- per_base_quality1.png
 ## |   |   +-- per_base_quality2.png
+## |   |   +-- README
 ## |   |   \-- setup_meta_env.yml
 ## |   +-- formatieveMetagenomics.html
 ## |   +-- formatieveMetagenomics.Rmd
@@ -454,6 +481,14 @@ your portfolio.</p>
 ##     +-- formatieveRNAseq.html
 ##     +-- formatieveRNAseq.Rmd
 ##     \-- README</code></pre>
+<div id="bibliografie" class="section level2 unnumbered">
+<h2 class="unnumbered">Bibliografie:</h2>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-ridge_guerrilla_2015" class="csl-entry">
+Ridge, Enda. 2015. <em>Guerrilla Analytics: A Practical Approach to
+Working with Data</em>. Amsterdam ; Boston: Elsevier.
+</div>
+</div>
 </div>
 
 

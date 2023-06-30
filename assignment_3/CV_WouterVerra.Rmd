@@ -9,7 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## algemene informatie
+## Algemene informatie
 Naam:			Wouter Verra <br>
 Adres: 			- <br>
 Telefoonnummer: 	- <br>
@@ -32,16 +32,16 @@ Mc Donalds Bodegraven, crewlid, mei 2016 tot juni 2017
 
 ## vaardigheden:
 
-### programeertalen:
+Programeertalen:<br>
 R <br>
 Bash <br>
 
-### programma's:
+Programma's:<br>
 Rstudio <br>
 Excel <br>
 SPSS
 
-### talen:
+Talen:
 Nederlands (moedertaal) <br>
 Engels (vloeiend)
 

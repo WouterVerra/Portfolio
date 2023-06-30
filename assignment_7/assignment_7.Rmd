@@ -16,7 +16,11 @@ library(DBI)
 
 # assignment_7
 
-```{r}
+Hieronder wordt een data analyse uitgevoerd met behulp van SQL. Er zijn drie datasets, de eerste is van de activiteit van de griep in verschillende landen gemeten op verschillende dagen, de tweede is dezelfde informatie maar dan voor de ziekte dengue. Als laatste wordt hier gebruik gemaakt van een bijgevoegde dataset van dslabs genaamd gapminder met algemene demografische informatie per land. Het doel is om de data in te laden in SQL, dat weer aan te vragen met een query en daarna te visualiseren met wat grafieken. 
+
+Als eerste moet de data ingelezen worden, tidy gemaakt worden en er voor zorgen dat de datum gesplitst wordt over drie kolommen voor de verdere analyse. Daarna wordt het ook verkend om te controleren dat het inlezen goed is gegaan en de kolommen bijvoorbeeld de goede datatypes hebben.
+
+```{r message=FALSE}
 # lees de data in
 fluDf <- read_csv(here("assignment_7", "flu_data.csv"), skip = 11)
 dengueDf <- read_csv(here("assignment_7", "dengue.csv"), skip = 11)
@@ -37,6 +41,8 @@ summary(tidyFlu)
 summary(gapminderDf)
 ```
 
+Hierna wordt de gecleande data opgeslagen als CSV en als RDS. 
+
 ```{r, eval = FALSE}
 # sla de gecleande data op
 write.csv(tidyFlu, file = here("assignment_7", "tidyFlu.csv"), row.names = FALSE)
@@ -47,7 +53,9 @@ write_rds(tidyDengue, file = here("assignment_7", "tidyDengue.rds"))
 write_rds(gapminderDf, file = here("assignment_7", "gapminderDf.rds"))
 ```
 
-```{r, eval = FALSE}
+Nu wordt er een con object gemaakt wat niet included is in de html zodat men online mijn wachtwoord niet ziet. Daarna worden de CSVs geupload naar de SQL server. 
+
+```{r include=FALSE}
 # maak een con object als connectie maar dan met het eigen wachtwoord
 con <- dbConnect(RPostgres::Postgres(),
                  dbname = "workflowsdb",
@@ -55,22 +63,18 @@ con <- dbConnect(RPostgres::Postgres(),
                  port="5432",
                  user="postgres",
                  password="password")
+```
 
+```{r, eval = FALSE}
 # laad de tabellen in de database in
 dbWriteTable(con, "tidyFlu", read_csv(here("assignment_7", "tidyFlu.csv")), overwrite = TRUE)
 dbWriteTable(con, "tidyDengue", read_csv(here("assignment_7", "tidyDengue.csv")), overwrite = TRUE)
 dbWriteTable(con, "gapminderDf", read_csv(here("assignment_7", "gapminderDf.csv")), overwrite = TRUE)
 ```
 
-```{r}
-# maak een con object als connectie maar dan met het eigen wachtwoord
-con <- dbConnect(RPostgres::Postgres(),
-                 dbname = "workflowsdb",
-                 host="localhost",
-                 port="5432",
-                 user="postgres",
-                 password="password")
+Vervolgens wordt er wat verkennende data aangevraagd aan de database om te controleren dat de data goed is over gekomen waarna het uiteindelijk gejoined opgevraagd wordt vanuit de server. 
 
+```{r}
 # laat de namen van de verschillende tabellen in de database zien
 dbListTables(con)
 
@@ -90,7 +94,11 @@ joined <- dbGetQuery(con, "SELECT *
            INNER JOIN \"tidyFlu\" 
            ON \"gapminderDf\".year = \"tidyFlu\".year 
            AND \"gapminderDf\".country = \"tidyFlu\".country")
-joined
+```
+
+Uiteindelijk wordt de opgevraagde gejoinde data gebruikt om een paar visualisaties van de data mee te doen. Als eerste is er een box plot met op de y-as de levensverwachting in jaren en dit is gegroepeert per regio. De volgende is een lijngrafiek met op de y-as de kindersterfte per duizend kinderen in Argentinië en op de x-as de jaren waarop dit gemeten is. De laatste grafiek is een cirkel diagram met de BBP opgeteld per continent. 
+
+```{r warning=FALSE}
 joined %>%   ggplot(aes(color = region, y = life_expectancy)) + 
   geom_boxplot() +
   labs(title = "Levensverwachting per regio",
@@ -115,5 +123,3 @@ joined %>% ggplot(aes(x = "", y = gdp, fill = continent)) +
   labs(title = "Verhouding BBP per continent",
        fill = "Continent")
 ```
-
-14. Write a short report to show at least the actions listed in this assignment in a Rmd file for your portfolio. Include pictures and provide text explaining and showcasing your skills.
