@@ -1,5 +1,5 @@
 ---
-title: "assignment_3"
+title: "Zelfgemaakte package"
 author: "Wouter"
 date: '2022-05-09'
 output: html_document

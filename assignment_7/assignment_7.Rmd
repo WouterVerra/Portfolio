@@ -1,5 +1,5 @@
 ---
-title: "assignment_7"
+title: "SQL data analyse"
 author: "Wouter"
 date: "`r Sys.Date()`"
 output: html_document
@@ -13,8 +13,6 @@ library(dslabs)
 library(readr)
 library(DBI)
 ```
-
-# assignment_7
 
 Hieronder wordt een data analyse uitgevoerd met behulp van SQL. Er zijn drie datasets, de eerste is van de activiteit van de griep in verschillende landen gemeten op verschillende dagen, de tweede is dezelfde informatie maar dan voor de ziekte dengue. Als laatste wordt hier gebruik gemaakt van een bijgevoegde dataset van dslabs genaamd gapminder met algemene demografische informatie per land. Het doel is om de data in te laden in SQL, dat weer aan te vragen met een query en daarna te visualiseren met wat grafieken. 
 

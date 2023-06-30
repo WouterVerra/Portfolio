@@ -1,5 +1,5 @@
 ---
-title: "assignment_1"
+title: "Dosis response analyse"
 author: "Wouter"
 date: '2022-05-02'
 output: html_document
@@ -13,8 +13,6 @@ library(here)
 library(ggplot2)
 library(dplyr)
 ```
-
-# opdracht 1.1
 
 Hieronder wordt een dosis respons analyse uitgevoerd. Tijdens het kijken naar de data voor deze analyse valt op dat er wat datapunten missen in rij 192-196 en dat sommige kolommen volledig dezelfde data bevatten wat beter in een metadata bestand gezet had kunnen worden. 
 

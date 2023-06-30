@@ -1,5 +1,5 @@
 ---
-title: "assignment_1.2"
+title: "Transparantie peer review"
 author: "Wouter"
 date: "`r Sys.Date()`"
 output: html_document
@@ -12,8 +12,6 @@ library(tidyverse)
 library(here)
 library(DT)
 ```
-
-# assignment 1.2
 
 Transparantie is een belangrijk onderdeel van onderzoek, het zorgt er voor dat onderzoeken makkelijker te controleren en doorgronden zijn. Hiervoor zijn een aantal criteria opgezet @sumner_reproducibility_2020 , zoals te lezen in de tabel hieronder.  
 
