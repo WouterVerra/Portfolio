@@ -14,6 +14,8 @@ library(ggplot2)
 library(dplyr)
 ```
 
+# Dosis response analyse
+
 Hieronder wordt een dosis respons analyse uitgevoerd. Tijdens het kijken naar de data voor deze analyse valt op dat er wat datapunten missen in rij 192-196 en dat sommige kolommen volledig dezelfde data bevatten wat beter in een metadata bestand gezet had kunnen worden. 
 
 Als eerste wordt de data ingeladen in R. 

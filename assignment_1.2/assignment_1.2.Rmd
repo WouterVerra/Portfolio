@@ -13,6 +13,8 @@ library(here)
 library(DT)
 ```
 
+# Transparantie peer review
+
 Transparantie is een belangrijk onderdeel van onderzoek, het zorgt er voor dat onderzoeken makkelijker te controleren en doorgronden zijn. Hiervoor zijn een aantal criteria opgezet @sumner_reproducibility_2020 , zoals te lezen in de tabel hieronder.  
 
 ```{r echo=FALSE}

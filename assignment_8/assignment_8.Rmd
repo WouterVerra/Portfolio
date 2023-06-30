@@ -9,6 +9,8 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+# Zelfgemaakte package
+
 Hieronder is een zelfgemaakte package te zien die ook te downloaden en proberen is. 
 
 Voor de package zie repository: explorers op profile: WouterVerra, zie ook de soccer dataset die bijgevoegd is aan de package.

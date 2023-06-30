@@ -16,6 +16,8 @@ library(tidyverse)
 library(here)
 ```
 
+# Parameterizatie van Rmarkdown documenten
+
 ```{r, eval=FALSE, include = FALSE}
 # onuitgevoerd blok om makkelijk zelf de parameters van dit bestand aan te passen
 rmarkdown::render(here("assignment_9", "assignment_9.Rmd"), params = list(country = "Austria", year = 2022, month = 3))

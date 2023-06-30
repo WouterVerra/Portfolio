@@ -9,6 +9,8 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+# CV Wouter Verra
+
 ## Algemene informatie
 Naam:			Wouter Verra <br>
 Adres: 			- <br>

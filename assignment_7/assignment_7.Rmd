@@ -14,6 +14,8 @@ library(readr)
 library(DBI)
 ```
 
+# SQL data analyse
+
 Hieronder wordt een data analyse uitgevoerd met behulp van SQL. Er zijn drie datasets, de eerste is van de activiteit van de griep in verschillende landen gemeten op verschillende dagen, de tweede is dezelfde informatie maar dan voor de ziekte dengue. Als laatste wordt hier gebruik gemaakt van een bijgevoegde dataset van dslabs genaamd gapminder met algemene demografische informatie per land. Het doel is om de data in te laden in SQL, dat weer aan te vragen met een query en daarna te visualiseren met wat grafieken. 
 
 Als eerste moet de data ingelezen worden, tidy gemaakt worden en er voor zorgen dat de datum gesplitst wordt over drie kolommen voor de verdere analyse. Daarna wordt het ook verkend om te controleren dat het inlezen goed is gegaan en de kolommen bijvoorbeeld de goede datatypes hebben.

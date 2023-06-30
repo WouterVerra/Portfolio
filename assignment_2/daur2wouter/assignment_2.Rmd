@@ -12,6 +12,8 @@ library(fs)
 library(here)
 ```
 
+# Guerrilla framework
+
 Het guerrilla framework, @ridge_guerrilla_2015 is een manier om data consequent een locatie te geven in een file structure. Het heeft 7 principes, de eerste is: ruimte is goedkoop maar verwarring is duur. Dit houdt in dat het prima is om extra ruimte te gebruiken om bijvoorbeeld readmes toe te voegen omdat het veel sneller werkt. De volgende is: gebruik simpele visuele project structuren. De volgende is automatiseer zo veel mogelijk met code zodat het snel reproduceerbaar is. Verbind data in de analyse omgeving met de werk omgeving. Gebruik version control software zoals git/github. Maak duidelijke afspraken binnen het team over bijvoorbeeld de manier waarop bestanden genoemd worden of wat het principe van de bestanden structuur is. Gebruik code die van begin tot einde loopt dus waar niet nog halverwege handmatig iets aan aangepast hoeft te worden. 
 
 Om hier een voorbeeld van te geven is hieronder de folder structuur van een voorgaande cursus gegeven: 
