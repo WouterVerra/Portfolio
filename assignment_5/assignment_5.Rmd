@@ -3,7 +3,7 @@ title: "Project Noldus"
 author: "Wouter"
 date: "`r Sys.Date()`"
 output: html_document
-bibliography: citations.bib
+bibliography: citations3.bib
 ---
 
 ```{r setup, include=FALSE}

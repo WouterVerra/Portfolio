@@ -3,7 +3,7 @@ title: "Parameterizatie van Rmarkdown documenten"
 author: "WouterVerra"
 date: "`r Sys.Date()`"
 output: html_document
-bibliography: citations.bib
+bibliography: citations4.bib
 params:
   country: "Austria"
   year: 2022
