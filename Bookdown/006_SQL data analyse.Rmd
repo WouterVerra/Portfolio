@@ -1,0 +1,125 @@
+---
+title: "SQL data analyse"
+author: "Wouter"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(here)
+library(dslabs)
+library(readr)
+library(DBI)
+```
+
+# SQL data analyse
+
+Hieronder wordt een data analyse uitgevoerd met behulp van SQL. Er zijn drie datasets, de eerste is van de activiteit van de griep in verschillende landen gemeten op verschillende dagen, de tweede is dezelfde informatie maar dan voor de ziekte dengue. Als laatste wordt hier gebruik gemaakt van een bijgevoegde dataset van dslabs genaamd gapminder met algemene demografische informatie per land. Het doel is om de data in te laden in SQL, dat weer aan te vragen met een query en daarna te visualiseren met wat grafieken. 
+
+Als eerste moet de data ingelezen worden, tidy gemaakt worden en er voor zorgen dat de datum gesplitst wordt over drie kolommen voor de verdere analyse. Daarna wordt het ook verkend om te controleren dat het inlezen goed is gegaan en de kolommen bijvoorbeeld de goede datatypes hebben.
+
+```{r message=FALSE}
+# lees de data in
+fluDf <- read_csv(here("assignment_7", "flu_data.csv"), skip = 11)
+dengueDf <- read_csv(here("assignment_7", "dengue.csv"), skip = 11)
+gapminderDf <- data.frame(gapminder)
+
+# maak de griep en dengue data tidy want er zaten meerdere observaties op 1 rij
+tidyFlu <- fluDf %>% pivot_longer(cols=tail(colnames(fluDf), n= 29), names_to= "country", values_to= "fluActivity")
+tidyDengue <- dengueDf %>% pivot_longer(cols= tail(colnames(dengueDf), n= 10), names_to= "country", values_to= "dengueActivity")
+
+# maak de datatype voor de country en year kolommen hetzelfde over de verschillende tabellen
+gapminderDf$country <- as.character(gapminderDf$country)
+tidyFlu <- tidyFlu %>% separate(col = Date, into = c("year", "month", "day"), sep = "-")
+tidyDengue <- tidyDengue %>% separate(col = Date, into = c("year", "month", "day"), sep = "-")
+
+# kijk of de datatypes nu overeenkomen en verken verder de data
+summary(tidyDengue)
+summary(tidyFlu)
+summary(gapminderDf)
+```
+
+Hierna wordt de gecleande data opgeslagen als CSV en als RDS. 
+
+```{r, eval = FALSE}
+# sla de gecleande data op
+write.csv(tidyFlu, file = here("assignment_7", "tidyFlu.csv"), row.names = FALSE)
+write.csv(tidyDengue, file = here("assignment_7", "tidyDengue.csv"))
+write.csv(gapminderDf, file = here("assignment_7", "gapminderDf.csv"))
+write_rds(tidyFlu, file = here("assignment_7", "tidyFlu.rds"))
+write_rds(tidyDengue, file = here("assignment_7", "tidyDengue.rds"))
+write_rds(gapminderDf, file = here("assignment_7", "gapminderDf.rds"))
+```
+
+Nu wordt er een con object gemaakt wat niet included is in de html zodat men online mijn wachtwoord niet ziet. Daarna worden de CSVs geupload naar de SQL server. 
+
+```{r include=FALSE}
+# maak een con object als connectie maar dan met het eigen wachtwoord
+con <- dbConnect(RPostgres::Postgres(),
+                 dbname = "workflowsdb",
+                 host="localhost",
+                 port="5432",
+                 user="postgres",
+                 password="password")
+```
+
+```{r, eval = FALSE}
+# laad de tabellen in de database in
+dbWriteTable(con, "tidyFlu", read_csv(here("assignment_7", "tidyFlu.csv")), overwrite = TRUE)
+dbWriteTable(con, "tidyDengue", read_csv(here("assignment_7", "tidyDengue.csv")), overwrite = TRUE)
+dbWriteTable(con, "gapminderDf", read_csv(here("assignment_7", "gapminderDf.csv")), overwrite = TRUE)
+```
+
+Vervolgens wordt er wat verkennende data aangevraagd aan de database om te controleren dat de data goed is over gekomen waarna het uiteindelijk gejoined opgevraagd wordt vanuit de server. 
+
+```{r}
+# laat de namen van de verschillende tabellen in de database zien
+dbListTables(con)
+
+# laat de namen van de kolommen van de verschillende tabellen zien
+dbListFields(con, dbListTables(con)[1])
+dbListFields(con, dbListTables(con)[2])
+dbListFields(con, dbListTables(con)[3])
+
+# geef een summary van alle tabellen in de database
+summary(dbReadTable(con, dbListTables(con)[1]))
+summary(dbReadTable(con, dbListTables(con)[2]))
+summary(dbReadTable(con, dbListTables(con)[3]))
+
+# join de gapminder tabel met de tidyflu tabel
+joined <- dbGetQuery(con, "SELECT * 
+           FROM \"gapminderDf\" 
+           INNER JOIN \"tidyFlu\" 
+           ON \"gapminderDf\".year = \"tidyFlu\".year 
+           AND \"gapminderDf\".country = \"tidyFlu\".country")
+```
+
+Uiteindelijk wordt de opgevraagde gejoinde data gebruikt om een paar visualisaties van de data mee te doen. Als eerste is er een box plot met op de y-as de levensverwachting in jaren en dit is gegroepeert per regio. De volgende is een lijngrafiek met op de y-as de kindersterfte per duizend kinderen in Argentinië en op de x-as de jaren waarop dit gemeten is. De laatste grafiek is een cirkel diagram met de BBP opgeteld per continent. 
+
+```{r warning=FALSE}
+joined %>%   ggplot(aes(color = region, y = life_expectancy)) + 
+  geom_boxplot() +
+  labs(title = "Levensverwachting per regio",
+       y = "Levensverwachting in jaren",
+       color = "Regio's") +
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+
+joined %>% filter(country == "Argentina") %>% ggplot(aes(x = year, y = infant_mortality)) + 
+  geom_line() + 
+  scale_x_continuous(breaks = seq(2000,2020,1)) + 
+  scale_y_continuous(breaks = seq(10,20,1)) + 
+  labs(title = "Kindersterfte per jaar in Argentinië",
+       x = "Jaren",
+       y = "Kindersterfte per duizend kinderen")
+
+joined %>% ggplot(aes(x = "", y = gdp, fill = continent)) +
+  geom_col() + 
+  coord_polar(theta = "y") + 
+  theme_void() + 
+  labs(title = "Verhouding BBP per continent",
+       fill = "Continent")
+```

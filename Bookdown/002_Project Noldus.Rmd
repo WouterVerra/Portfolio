@@ -1,0 +1,47 @@
+---
+title: "Project Noldus"
+author: "Wouter"
+date: "`r Sys.Date()`"
+output: html_document
+bibliography: citations3.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Project Noldus
+
+Samen met twee anderen heb ik een project uitgevoerd voor het bedrijf Noldus @noauthor_about_nodate. Dit is een bedrijf dat zich specialiseert in het maken van producten voor gedragsonderzoek. Een paar voorbeelden hiervan zijn de UltraVox XT @noauthor_rodent_nodate welke de geluiden die knaagdieren maken analyseert, FaceReader @noauthor_facial_nodate welke menselijke gezichtsuitdrukkingen analyseert en de Erasmus ladder @noauthor_motor_nodate. De laatste was de focus van dit onderzoek. De Erasmus ladder bestaat uit twee hokken met een horizontale ladder er tussen. De muizen worden overgehaald uit het hokje te gaan door een luchtstroom en lichtjes waarna het leerd dat als het naar de overkant loopt de wind en lichtjes stoppen, het wil dus zo snel mogelijk naar de overkant. De tred waarmee de muis loopt zegt iets over hoe goed de motor functie is van de muis en daarmee kan gekwantificeerd worden hoe erg de muis is beinvloed door de experimentele conditie @noauthor_motor_nodate-1. 
+
+De ladder heeft treden waar een knop onder zit waardoor er gemeten kan worden wat voor soort stap er gezet is en voor hoe lang. Er zijn 4 soorten stappen die gezet kunnen worden, namelijk: korte stap, lange stap, sprong en terug stap en deze informatie wordt allemaal per experiment opgeslagen inclusief de volgorde van de soort stappen per muis. Dit wordt opgeslagen in een grote Excel file met nog veel meer variabelen en metadata per muis zoals leeftijd en sekse. Deze data wordt ingeladen in R, waarna er veel verschillende grafieken mee gemaakt konden worden. 
+
+Noldus wou graag hun data visualisatie verbeteren, dit werd toen der tijd gedaan met een wat verouderde app waar weinig in aangepast kon worden. De vraag was of wij hier een applicatie voor konden maken welke interactief is. Dit is gedaan door eerst een aantal grafieken en tabellen te maken in aparte R scripts @noauthor_how_nodate. Dit zijn uiteindelijk 11 verschillende tabellen en grafieken geworden welke allemaal naar een ander onderdeel van de data kijken of het op een andere manier visualiseren. Deze scripts zijn hierna aangeroepen in een Shiny app. Shiny @noauthor_shiny_nodate is een open source R package waarmee een applicatie gemaakt kan worden welke redelijk eenvoudig online gedeeld kan worden. De applicatie is te vinden op: @noauthor_noldus_nodate 
+
+Hieronder geef ik een aantal screenshots van de werking van de Noldus applicatie: 
+
+Als eerste kan de gewenste data ingeladen worden. 
+
+![ ](C:\Users\Gebruiker\Documents\hu\datascience\dsfb2\Portfolio\assignment_5\Knipsel1.JPG)
+
+Daarna is er een tab met algemene data, hieronder valt een tabel met wat metadata, een bargraph met de verdeling van mannelijke en vrouwelijke muizen in het experiment en een tabel met missende data.
+
+![ ](C:\Users\Gebruiker\Documents\hu\datascience\dsfb2\Portfolio\assignment_5\Knipsel2.JPG)
+
+Vervolgens is er een tab met een interactieve grafiek met verschillende tijd gerelateerde grafieken per trial en een violin plot van de tijd per trial tussen de controle groep en de mutant, deze grafieken zijn interactief doordat de spreiding van de sessies zelf gekozen kan worden waardoor bijvoorbeeld alleen naar sessie 5-7 gekeken kan worden en doordat de tijd gerelateerde grafiek variabele gekozen kan worden.
+
+![ ](C:\Users\Gebruiker\Documents\hu\datascience\dsfb2\Portfolio\assignment_5\Knipsel3.JPG)
+
+De volgende tab bevat een interactieve grafiek die de gemiddelde hoeveelheid percentage van de stap typen kan laten zien met dezelfde soort sessie spreiding als de vorige grafiek. 
+
+![ ](C:\Users\Gebruiker\Documents\hu\datascience\dsfb2\Portfolio\assignment_5\Knipsel4.JPG)
+
+Daarna is er een staaf diagram die het verschil tussen de controle groep en de mutant kan laten zien in de hoeveelheid percentage van de stappen per staptype en nogmaals de sessie spreiding.
+
+![ ](C:\Users\Gebruiker\Documents\hu\datascience\dsfb2\Portfolio\assignment_5\Knipsel5.JPG)
+
+Als laatste is er een grafiek die de hoeveelheid percentage stappen visualiseerd als een viool grafiek met als interactie de keuze van staptype en de spreiding van de sessies.
+
+![ ](C:\Users\Gebruiker\Documents\hu\datascience\dsfb2\Portfolio\assignment_5\Knipsel6.JPG)
+
+## Bibliografie

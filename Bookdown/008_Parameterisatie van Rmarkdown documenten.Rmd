@@ -1,0 +1,60 @@
+---
+title: "Parameterizatie van Rmarkdown documenten"
+author: "WouterVerra"
+date: "`r Sys.Date()`"
+output: html_document
+bibliography: citations4.bib
+params:
+  country: "Austria"
+  year: 2022
+  month: 3
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(here)
+```
+
+# Parameterizatie van Rmarkdown documenten
+
+```{r, eval=FALSE, include = FALSE}
+# onuitgevoerd blok om makkelijk zelf de parameters van dit bestand aan te passen
+rmarkdown::render(here("assignment_9", "assignment_9.Rmd"), params = list(country = "Austria", year = 2022, month = 3))
+```
+
+Dit is een Rmarkdown bestand met parameters waardoor snel en overzichtelijk verschillende outputs gemaakt kunnen worden. Het gebruik van parameters wordt gepresenteerd met dit voorbeeld van covid 19 data die gedownload is van de ECDC @noauthor_download_2020. 
+
+Als eerste worden in de YAML header parameters toegevoegd die daarna in de code gecalled kunnen worden waardoor alleen in de YAML header de informatie aangepast hoeft te worden en het overal in het bestand wordt overgenomen. Dit is veel mmakkelijker en met minder kans op menselijke fouten dan meerdere calls in de code aanpassen. 
+
+Daarna wordt de data ingelezen, meerdere malen gefilterd op verschillende parameters en daarna met ggplot geplot. De eerste plot geeft de hoeveelheid cases van covid 19 in de dagen van de geselecteerde maand in de het geselecteerde jaar in het geselecteerde land. De tweede grafiek geeft de hoeveelheid covid gerelateerde sterfgevallen in de dagen van de geselecteerde maand in de het geselecteerde jaar in het geselecteerde land
+
+```{r}
+# read  in csv with covid data
+covid_data <- read.csv(here("assignment_9", "data.csv"))
+
+# filter op land
+covid_data <- covid_data %>% filter(countriesAndTerritories == params$country)
+
+# filter op jaar
+covid_data <- covid_data %>% filter(year == params$year)
+
+# filter op maand
+covid_data <- covid_data %>% filter(month == params$month)
+
+# plot the cases
+covid_data %>% 
+  ggplot(aes(x= day, y= cases)) +
+  geom_line() +
+  geom_point() +
+  labs(title= paste0("Covid 19 cases in: ", params$country, " in: ", params$month, "/", params$year), y= "Covid cases")
+
+# plot the deaths
+covid_data %>% 
+  ggplot(aes(x= day, y= deaths)) +
+  geom_line() +
+  geom_point() +
+  labs(title= paste0("Covid 19 deaths in: ", params$country, " in: ", params$month, "/", params$year), y= "Covid deaths")
+```
+
+## Bibliografie

@@ -1,0 +1,44 @@
+---
+title: "Zelfgemaakte package"
+author: "Wouter"
+date: '2022-05-09'
+output: html_document
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Zelfgemaakte package
+
+Hieronder is een zelfgemaakte package te zien die ook te downloaden en proberen is. 
+
+Voor de package zie repository: explorers op profile: WouterVerra, zie ook de soccer dataset die bijgevoegd is aan de package.
+
+```{r eval=FALSE}
+devtools::install_github("WouterVerra/explorers", build_vignettes = TRUE, force = TRUE)
+```
+
+```{r message=FALSE}
+# laad de package
+library(explorers)
+
+# standaard toegevoegde data
+soccer
+
+# explore functie
+explore(soccer)
+
+# NAcol functie
+NAcol(soccer)
+
+# NArow functie
+NArow(soccer)
+
+# replace functie
+replace(soccer, "points", 3, 20)
+```
+
+De HTML vignette is hieronder te zien, ook is het mogelijk om een uitleg van alle functies op te zoeken door bijvoorbeeld ?replace in de console te typen. 
+
+![ ](C:\Users\Gebruiker\Documents\hu\datascience\dsfb2\Portfolio\assignment_8\Knipsel7.JPG)
