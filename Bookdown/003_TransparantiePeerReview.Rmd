@@ -3,7 +3,7 @@ title: "Transparantie peer review"
 author: "Wouter"
 date: "`r Sys.Date()`"
 output: html_document
-bibliography: citations1.bib
+bibliography: citations.bib
 ---
 
 ```{r include=FALSE}
@@ -189,5 +189,3 @@ Om te laten zien hoe handig het is om transparant te werken Zal ik een deel van 
 Zoals te zien hierboven heeft de code gewerkt. Ik heb twee kleine aanpassingen gedaan, namelijk: de data voor het inladen stond op een andere plek dus die heb ik even aangepast en ik heb de ggsave uit gecomment zodat deze niet telkens probeert om een afbeelding op te slaan dat je de code runt. 
 
 Uit het resultaat van de code is te zien dat deze code heel netjes en leesbaar is geschreven en zonder ingrijpende handelingen hetzelfde resultaat geeft als in het paper is laten zien. Ik zou de leesbaarheid van de code op een schaal van 1 (heel slecht) tot 5 (erg goed) een 5 geven aangezien het duidelijk leesbaar is met comments en tussenkopjes. Ik zou de reprodureerbaarheid van dit onderzoek op een schaal van 1 (heel slecht) tot 5 (erg goed) een 5 geven aangezien de code met een paar kleine aanpassingen precies hetzelfde resultaat geeft als gepresenteert in het paper. 
-
-## Bibliografie: 

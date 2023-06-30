@@ -3,7 +3,7 @@ title: "Computer vision morris watermaze"
 author: "Wouter"
 date: "`r Sys.Date()`"
 output: html_document
-bibliography: citations5.bib
+bibliography: citations.bib
 nocite: '@*'
 ---
 
@@ -86,5 +86,3 @@ Hier is de output van de bovenstaande python code te zien.
 ```{r echo=FALSE}
 embed_video(src = "C:\\Users\\Gebruiker\\Documents\\hu\\datascience\\dsfb2\\Portfolio\\open_assignment\\correcteOutput.mp4", type = c("mp4"), width = "640", height = "480", attribute = c("controls", "autoplay"))
 ```
-
-## Bibliografie

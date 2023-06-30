@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # CV Wouter Verra
 
-## Algemene informatie
+<p style="font-size: x-large">Algemene informatie</p>
 Naam:			Wouter Verra <br>
 Adres: 			- <br>
 Telefoonnummer: 	- <br>
@@ -21,18 +21,18 @@ Geslacht: 		Man <br>
 Nationaliteit: 		Nederlandse <br>
 Burgerlijke staat: 	Ongehuwd <br>
 
-## Opleidingen:
+<p style="font-size: x-large">Opleidingen:</p>
 Biologisch en Medisch Laboratorium Onderzoek te Utrecht, september 2018 tot heden <br>
 Keltische Talen en Cultuur te Utrecht, september 2016 tot mei 2016 <br>
 University Foundation Year (afgerond) Education First te Oxford, September 2015 tot mei 2016 <br>
 VWO (afgerond) Marecollege te Leiden, September 2007 tot juni 2015 <br>
 
-## Werkervaring:
+<p style="font-size: x-large">Werkervaring:</p>
 Hadro techniek, assemblage medewerker, september 2017 tot augustus 2018 <br>
 Van Vliet The Candy Company, orderpicker, juni 2017 tot september 2017 <br>
 Mc Donalds Bodegraven, crewlid, mei 2016 tot juni 2017
 
-## Vaardigheden:
+<p style="font-size: x-large">Vaardigheden:</p>
 
 Programeertalen:<br>
 R <br>
@@ -43,10 +43,10 @@ Rstudio <br>
 Excel <br>
 SPSS
 
-Talen:
+Talen: <br>
 Nederlands (moedertaal) <br>
 Engels (vloeiend)
 
-## Hobby’s:
+<p style="font-size: x-large">Hobby’s:</p>
 Roeien <br>
 Boulderen

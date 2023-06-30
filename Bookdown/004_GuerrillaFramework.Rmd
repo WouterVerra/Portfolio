@@ -3,7 +3,7 @@ title: "Guerrilla framework"
 author: "Wouter"
 date: '2022-05-09'
 output: html_document
-bibliography: citations2.bib
+bibliography: citations.bib
 ---
 
 ```{r include=FALSE}
@@ -21,6 +21,3 @@ Om hier een voorbeeld van te geven is hieronder de folder structuur van een voor
 ```{r}
 fs::dir_tree(here::here("assignment_2", "daur2wouter"))
 ```
-
-
-## Bibliografie: 
