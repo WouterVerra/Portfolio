@@ -34,16 +34,16 @@ Mc Donalds Bodegraven, crewlid, mei 2016 tot juni 2017
 
 <p style="font-size: x-large">Vaardigheden:</p>
 
-Programeertalen:<br>
+<p style="font-size: large">Programeertalen:</p>
 R <br>
 Bash <br>
 
-Programma's:<br>
+<p style="font-size: large">Programma's:</p>
 Rstudio <br>
 Excel <br>
 SPSS
 
-Talen: <br>
+<p style="font-size: large">Talen:</p>
 Nederlands (moedertaal) <br>
 Engels (vloeiend)
 

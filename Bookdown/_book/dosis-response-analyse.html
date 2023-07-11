@@ -23,7 +23,7 @@
 <meta name="author" content="Wouter" />
 
 
-<meta name="date" content="2023-06-30" />
+<meta name="date" content="2023-07-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -193,6 +193,7 @@ div.csl-indent {
 <div id="dosis-response-analyse" class="section level1 hasAnchor" number="6">
 <h1><span class="header-section-number">6</span> Dosis response analyse<a href="dosis-response-analyse.html#dosis-response-analyse" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Hieronder wordt een dosis respons analyse uitgevoerd. Tijdens het kijken naar de data voor deze analyse valt op dat er wat datapunten missen in rij 192-196 en dat sommige kolommen volledig dezelfde data bevatten wat beter in een metadata bestand gezet had kunnen worden.</p>
+<p>Een stappenplan voor deze analyse is: 1. de ruwe data inlezen, 2. de data verkennen om te kijken of de data correct is ingelezen, 3. als er data verkeerd is deze aanpassen/ anders in laten lezen totdat deze wel correct is voor de analyse, 4. normaliseer de data met behulp van de negatieve controle, 5. visualiseer de data met behulp van ggplot, 6. trek conclusies aan de hand van de verkregen visualisatie.</p>
 <p>Als eerste wordt de data ingeladen in R.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="dosis-response-analyse.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># inladen data</span></span>
 <span id="cb5-2"><a href="dosis-response-analyse.html#cb5-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="fu">here</span>(</span>
@@ -210,12 +211,9 @@ div.csl-indent {
 <p>De data van de x-as is character in plaats van numeriek omdat het als wetenschappelijke notatie is geimporteerd, Dit moet aangepast worden. Hierna kan dezelfde grafiek nog een keer gemaakt worden maar dan met een logaritmische schaal op de x-as.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="dosis-response-analyse.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># controleer de unieke waardes van de kolom compConcentration, hierin is te zien dat sommige waardes in wetenschappelijke notatie staan waardoor ze als character worden gelezen</span></span>
 <span id="cb7-2"><a href="dosis-response-analyse.html#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(data<span class="sc">$</span>compConcentration)</span></code></pre></div>
-<pre><code>##  [1] &quot;4.99&quot;                  &quot;0.499&quot;                 &quot;4.99E-2&quot;              
-##  [4] &quot;4.9899999999999996E-3&quot; &quot;4.9899999999999999E-4&quot; &quot;4.99E-5&quot;              
-##  [7] &quot;19.5&quot;                  &quot;1.95&quot;                  &quot;0.19500000000000001&quot;  
-## [10] &quot;1.95E-2&quot;               &quot;1.9499999999999999E-3&quot; &quot;1.95E-4&quot;              
-## [13] &quot;0,000195&quot;              &quot;1.5&quot;                   &quot;0&quot;                    
-## [16] &quot;0.5&quot;</code></pre>
+<pre><code>##  [1] &quot;4.99&quot;                  &quot;0.499&quot;                 &quot;4.99E-2&quot;               &quot;4.9899999999999996E-3&quot; &quot;4.9899999999999999E-4&quot; &quot;4.99E-5&quot;               &quot;19.5&quot;                 
+##  [8] &quot;1.95&quot;                  &quot;0.19500000000000001&quot;   &quot;1.95E-2&quot;               &quot;1.9499999999999999E-3&quot; &quot;1.95E-4&quot;               &quot;0,000195&quot;              &quot;1.5&quot;                  
+## [15] &quot;0&quot;                     &quot;0.5&quot;</code></pre>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="dosis-response-analyse.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># verander de waardes met wetenschappelijke notatie naar normale notatie</span></span>
 <span id="cb9-2"><a href="dosis-response-analyse.html#cb9-2" aria-hidden="true" tabindex="-1"></a>data[<span class="st">&quot;compConcentration&quot;</span>][data[<span class="st">&quot;compConcentration&quot;</span>] <span class="sc">==</span> <span class="st">&quot;1.95E-2&quot;</span>] <span class="ot">&lt;-</span> <span class="st">&quot;0.0195&quot;</span></span>
 <span id="cb9-3"><a href="dosis-response-analyse.html#cb9-3" aria-hidden="true" tabindex="-1"></a>data[<span class="st">&quot;compConcentration&quot;</span>][data[<span class="st">&quot;compConcentration&quot;</span>] <span class="sc">==</span> <span class="st">&quot;4.9899999999999996E-3&quot;</span>] <span class="ot">&lt;-</span> <span class="st">&quot;0.0049899999999999996&quot;</span></span>
@@ -230,14 +228,9 @@ div.csl-indent {
 <span id="cb9-12"><a href="dosis-response-analyse.html#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-13"><a href="dosis-response-analyse.html#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co"># controleer de unieke waardes nogmaals, de kolom kan nu omgezet worden naar numeriek</span></span>
 <span id="cb9-14"><a href="dosis-response-analyse.html#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(data<span class="sc">$</span>compConcentration)</span></code></pre></div>
-<pre><code>##  [1] &quot;4.99&quot;                   &quot;0.499&quot;                 
-##  [3] &quot;0.0499&quot;                 &quot;0.0049899999999999996&quot; 
-##  [5] &quot;0.00049899999999999999&quot; &quot;0.0000499&quot;             
-##  [7] &quot;19.5&quot;                   &quot;1.95&quot;                  
-##  [9] &quot;0.19500000000000001&quot;    &quot;0.0195&quot;                
-## [11] &quot;0.0019499999999999999&quot;  &quot;0.000195&quot;              
-## [13] &quot;0,000195&quot;               &quot;1.5&quot;                   
-## [15] &quot;0&quot;                      &quot;0.5&quot;</code></pre>
+<pre><code>##  [1] &quot;4.99&quot;                   &quot;0.499&quot;                  &quot;0.0499&quot;                 &quot;0.0049899999999999996&quot;  &quot;0.00049899999999999999&quot; &quot;0.0000499&quot;             
+##  [7] &quot;19.5&quot;                   &quot;1.95&quot;                   &quot;0.19500000000000001&quot;    &quot;0.0195&quot;                 &quot;0.0019499999999999999&quot;  &quot;0.000195&quot;              
+## [13] &quot;0,000195&quot;               &quot;1.5&quot;                    &quot;0&quot;                      &quot;0.5&quot;</code></pre>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="dosis-response-analyse.html#cb11-1" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>compConcentration <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(data<span class="sc">$</span>compConcentration)</span>
 <span id="cb11-2"><a href="dosis-response-analyse.html#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="dosis-response-analyse.html#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># verander de kolommen &quot;compName&quot; en &quot;expType&quot; naar een factor</span></span>

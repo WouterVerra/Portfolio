@@ -18,6 +18,8 @@ library(dplyr)
 
 Hieronder wordt een dosis respons analyse uitgevoerd. Tijdens het kijken naar de data voor deze analyse valt op dat er wat datapunten missen in rij 192-196 en dat sommige kolommen volledig dezelfde data bevatten wat beter in een metadata bestand gezet had kunnen worden. 
 
+Een stappenplan voor deze analyse is: 1. de ruwe data inlezen, 2. de data verkennen om te kijken of de data correct is ingelezen, 3. als er data verkeerd is deze aanpassen/ anders in laten lezen totdat deze wel correct is voor de analyse, 4. normaliseer de data met behulp van de negatieve controle, 5. visualiseer de data met behulp van ggplot, 6. trek conclusies aan de hand van de verkregen visualisatie.
+
 Als eerste wordt de data ingeladen in R. 
 
 ```{r}
@@ -89,4 +91,3 @@ norm_data %>%
 ```
 
 De positieve controle voor dit experiment is ethanol en de negatieve controle is S-medium. Als je naar de grafiek kijkt lijkt 2,6-diisopropylnaphtalene langzaam maar zeker af te nemen terwijl naphtalene lang hoog blijft en opeens afvalt en decane juist het omgekeerde doet en snel afvalt en daarna daar blijft hangen. Er lijkt dus wel een correlatie te zijn tussen de concentratie compound en de hoeveelheid getelde nematoden. 
-
