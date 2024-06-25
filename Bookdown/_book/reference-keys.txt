@@ -1,11 +1,9 @@
 portfolio
 cv-wouter-verra
 project-noldus
-transparantie-peer-review
-guerrilla-framework
+computer-vision-morris-watermaze
 dosis-response-analyse
 sql-data-analyse
 zelfgemaakte-package
 parameterizatie-van-rmarkdown-documenten
-computer-vision-morris-watermaze
 bibliografie
