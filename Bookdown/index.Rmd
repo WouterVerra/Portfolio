@@ -19,7 +19,7 @@ nocite: '@*'
 
 # Portfolio
 
-Hallo! ik ben Wouter Verra, Afgestudeerd met een bachelor biologisch en medisch laboratorium onderzoek met een minor in data science. Deze site bevat mijn cv en een aantal voorbeelden van wat ik kan qua coderen en bioinformatica. 
+Hallo! ik ben Wouter Verra, Afgestudeerd met een bachelor biologisch en medisch laboratorium onderzoek met een minor in data science, een honours project werkende met de minION (DNA sequencing) en een stage met als doel het opzetten van een geoptimaliseerde pipeline voor het classificering van bacterien vanuit een huidmicrobioom. Deze site bevat mijn cv en een aantal voorbeelden van wat ik kan qua coderen en bioinformatica. 
 
 ```{r eval=FALSE, include=FALSE}
 bookdown::render_book(here::here("Bookdown", "index.Rmd"), "bookdown::gitbook")
